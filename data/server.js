@@ -14,9 +14,14 @@ app.get("/", (req, res) => {
 
 app.use(cors())
 app.use(express.json())
-app.use("/api",userRoutes)
+app.use("/api", userRoutes)
 app.use("/api", markerRoute)
 app.use("/api", authRoute)
+
+app.use("/api", commonRoutes)
+app.use("/api/admin", auth, adminMiddleware, AdminRouter)
+app.use("/api/volunteer", auth, volunteerRouter)
+
 app.listen(config.PORT, () => {
   console.log(`Server started on port ${config.PORT}`)
 })
