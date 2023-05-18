@@ -17,6 +17,7 @@ const mapSlice = createSlice({
           lat: action.payload.position.lat,
           lng: action.payload.position.lng
         },
+        rate: action.payload.rate,
         binaAdi: action.payload.binaAdi,
         hasarMiktari: action.payload.hasarMiktari
       }

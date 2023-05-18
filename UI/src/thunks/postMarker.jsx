@@ -13,7 +13,7 @@ export const postMarker = createAsyncThunk(
       const response = await axios.post(MARKERS_URL, newMarker, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
+          Authorization: `${token}`
         }
       })
 
