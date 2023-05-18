@@ -2,7 +2,7 @@ import axios from "axios"
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { addMarker } from "../Store/mapSlice"
 
-const MARKERS_URL = "http://localhost:3000/api/markers"
+const MARKERS_URL = "http://localhost:3000/api/volunteer/markers"
 
 export const postMarker = createAsyncThunk(
   "map/postMarker",

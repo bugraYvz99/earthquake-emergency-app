@@ -12,11 +12,19 @@ import {
   IconLogout,
   IconMenu2
 } from "@tabler/icons-react"
-
+import { useDispatch } from "react-redux"
+import { logout } from "../thunks/logout"
 import React from "react"
-import { Link } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 
 const NavbarComponent = () => {
+  const dispatch = useDispatch()
+
+  const handleLogout = () => {
+    dispatch(logout())
+    window.location.href = "/llogin"
+  }
+
   const useStyles = createStyles((theme) => ({
     header: {
       paddingBottom: theme.spacing.md,
@@ -153,11 +161,7 @@ const NavbarComponent = () => {
               <span>Change account</span>
             </Link>
 
-            <Link
-              to="#"
-              className={classes.link}
-              onClick={(event) => event.preventDefault()}
-            >
+            <Link to="/login" className={classes.link} onClick={handleLogout}>
               <IconLogout className={classes.linkIcon} stroke={1.5} />
               <span>Logout</span>
             </Link>
