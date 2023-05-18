@@ -6,13 +6,23 @@ import Login from "../Pages/Login"
 import { LogEvent } from "../Pages/LogEvent"
 import DataShowPage from "../Pages/DataShowPage"
 const Router = () => {
+  function checkToken() {
+    let token = localStorage.getItem("token")
+    if (token) {
+      //call getUserEndpoint
+      //if success -> go to "/" and reduxStore kullanıcı bilgilerini doldur.
+      //return true
+      //if fail -> remove localstorage " token"
+      //return false
+    }
+    return false
+  }
+
   return (
     <Routes>
       <Route
         path="/login"
-        element={
-          localStorage.getItem("token") ? <Navigate to="/" /> : <Login />
-        }
+        element={checkToken() ? <Navigate to="/" /> : <Login />}
       />
 
       <Route
