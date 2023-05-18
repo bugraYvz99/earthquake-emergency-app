@@ -6,6 +6,7 @@ const markerRoute = require("./routes/markerRoute")
 const authRoute = require("./routes/authRoute")
 const cors = require("cors")
 const config = require("./config")
+const auth = require("./authmidlleware")
 
 app.get("/", (req, res) => {
   res.send("Hello World!")
@@ -13,7 +14,7 @@ app.get("/", (req, res) => {
 
 app.use(cors())
 app.use(express.json())
-app.use("/api", userRoutes)
+app.use("/api",userRoutes)
 app.use("/api", markerRoute)
 app.use("/api", authRoute)
 app.listen(config.PORT, () => {
