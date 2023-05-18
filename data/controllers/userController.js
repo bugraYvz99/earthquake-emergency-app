@@ -41,9 +41,7 @@ exports.deleteUser = async (req, res) => {
 exports.getUserData = async (req, res) => {
   try {
     // Get the user data from the token
-    const token = req.headers.authorization.split(" ")[1];
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const { name, lastName, role } = decoded;
+    const { name, lastName, role } = req.user;
 
     // Find the user in the database
     const user = await User.findOne({ name, lastName });
