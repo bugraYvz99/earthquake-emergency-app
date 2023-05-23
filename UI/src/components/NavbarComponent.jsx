@@ -22,7 +22,7 @@ const NavbarComponent = () => {
 
   const handleLogout = () => {
     dispatch(logout())
-    window.location.href = "/llogin"
+    window.location.href = "/login"
   }
 
   const useStyles = createStyles((theme) => ({
