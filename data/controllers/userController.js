@@ -40,12 +40,13 @@ exports.deleteUser = async (req, res) => {
 };
 exports.getUserData = async (req, res) => {
   try {
+    console.log(req.user);
     // Get the user data from the token
-    const { name, lastName, role } = req.user;
+    const { phoneNumber } = req.user;
 
     // Find the user in the database
-    const user = await User.findOne({ name, lastName });
-
+    const user = await User.findOne({ phoneNumber });
+    console.log(phoneNumber, req.user.role);
     // Return the user data
     res.json({
       name: user.name,
