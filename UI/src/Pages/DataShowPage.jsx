@@ -1,21 +1,35 @@
 import { useSelector, useDispatch } from "react-redux";
 import { selectMarker } from "../Store/mapSlice";
-import { Table } from '@mantine/core';
-
-
+import { Table } from "@mantine/core";
+import { fetchMarkers } from "../thunks/getmarkers";
+import { useEffect, useState } from "react";
 
 const DataShowPage = () => {
+  const [dbMarkers, setDbMarkers] = useState([]);
   const dispatch = useDispatch();
-  const markers = useSelector((state) => state.map.markers);
-
+  useEffect(() => {
+    dispatch(fetchMarkers())
+      .unwrap()
+      .then((markers) => {
+        setDbMarkers(markers);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [dispatch]);
+  console.log(dbMarkers);
   const handleMarkerClick = (marker) => {
     dispatch(selectMarker(marker));
     // Burada seçilen markerın yol tarifi gösterme işlemlerini yapabilirsiniz
   };
-  const rows = markers.map((marker, index) => (
-    <tr key={index} onClick={() => handleMarkerClick(marker)}>
+  const rows = dbMarkers.map((marker, index) => (
+    <tr
+      className="relative top-10 right-2"
+      key={index}
+      onClick={() => handleMarkerClick(marker)}
+    >
       <td>{marker.address}</td>
-      <td>{marker.hasarMiktari}</td>
+      <td>{marker.rate}</td>
     </tr>
   ));
 
@@ -23,9 +37,9 @@ const DataShowPage = () => {
     <div>
       <Table>
         <thead>
-          <tr>
-            <th>Adres</th>
-            <th>Hasar</th>
+          <tr className="">
+            <tr className="  fixed top-18">Adres</tr>
+            <tr className="fixed top-20 right-5">Puan</tr>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
