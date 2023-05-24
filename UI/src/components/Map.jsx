@@ -1,53 +1,55 @@
-import React, { useEffect, useState } from "react";
-import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchMarkers } from "../thunks/getmarkers";
+import React, { useEffect, useState } from "react"
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api"
+import { useDispatch, useSelector } from "react-redux"
+import { fetchMarkers } from "../thunks/getmarkers"
 
-import { useNavigate } from 'react-router-dom';
-
-
+import { useNavigate } from "react-router-dom"
 
 const containerStyle = {
   width: "375px",
   height: "300px"
-};
+}
 
 const center = {
   lat: 39.745,
   lng: 32.523
-};
+}
 
-const libraries = ["geometry", "drawing"];
+const libraries = ["geometry", "drawing"]
 
 const Map = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [dbMarkers, setDbMarkers] = useState([]);
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const [dbMarkers, setDbMarkers] = useState([])
 
   const { isLoaded: isApiLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyDXUM99i5wpXdDa8fqqW18TtwHKrQYimyE",
     libraries
-  });
+  })
 
   useEffect(() => {
     dispatch(fetchMarkers())
       .unwrap()
       .then((markers) => {
-        setDbMarkers(markers);
+        setDbMarkers(markers)
       })
       .catch((error) => {
-        console.log(error);
-      });
-  }, [dispatch]);
+        console.log(error)
+      })
+  }, [dispatch])
   const handleMapClick = (e) => {
     console.log(e)
     if (e && e.latLng) {
-    const lat = e.latLng.lat();
-    const lng = e.latLng.lng();
-    navigate(`/create-marker/${lat}/${lng}`);
+      const lat = e.latLng.lat()
+      const lng = e.latLng.lng()
+      navigate(`/create-marker/${lat}/${lng}`)
     }
-  };
+  }
+  const handleMarkerClick = (marker) => {
+    const markerId = marker._id
+    navigate(`/marker-details/${markerId}`)
+  }
   return (
     <div style={{ flexGrow: 1 }}>
       {isApiLoaded && (
@@ -63,12 +65,13 @@ const Map = () => {
                 key={index}
                 position={marker.position}
                 title={marker.address}
+                onClick={() => handleMarkerClick(marker)}
               />
             ))}
         </GoogleMap>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Map;
+export default Map

@@ -1,7 +1,7 @@
 // userController.js
 
-const User = require("../data/models/userModel");
-const jwt = require("jsonwebtoken");
+const User = require("../data/models/userModel")
+const jwt = require("jsonwebtoken")
 
 exports.createUser = async (req, res) => {
   try {
@@ -11,50 +11,48 @@ exports.createUser = async (req, res) => {
       email: req.body.email,
       phoneNumber: req.body.phoneNumber,
       tcNumber: req.body.tcNumber,
-      role: req.body.role || "gönüllü", // rol varsayılan olarak "user" olarak ayarlanır
-    });
-    console.log(req.body);
-    await user.save();
-    res.status(201).json({ message: "User created successfully" });
+      role: req.body.role || "gönüllü" // rol varsayılan olarak "user" olarak ayarlanır
+    })
+    console.log(req.body)
+    await user.save()
+    res.status(201).json({ message: "User created successfully" })
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Internal server error" });
+    console.error(err)
+    res.status(500).json({ message: "Internal server error" })
   }
-};
+}
 
 exports.deleteUser = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.id)
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "User not found" })
     }
     if (user.role !== "yetkili") {
-      return res.status(403).json({ error: "Access denied" });
+      return res.status(403).json({ error: "Access denied" })
     }
-    await user.delete();
-    res.json({ message: "User deleted successfully" });
+    await user.delete()
+    res.json({ message: "User deleted successfully" })
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Internal server error" });
+    console.error(err)
+    res.status(500).json({ message: "Internal server error" })
   }
-};
+}
 exports.getUserData = async (req, res) => {
   try {
-    console.log(req.user);
     // Get the user data from the token
-    const { phoneNumber } = req.user;
+    const { phoneNumber } = req.user
 
     // Find the user in the database
-    const user = await User.findOne({ phoneNumber });
-    console.log(phoneNumber, req.user.role);
+    const user = await User.findOne({ phoneNumber })
     // Return the user data
     res.json({
       name: user.name,
       lastName: user.lastName,
-      role: user.role,
-    });
+      role: user.role
+    })
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Server Error" });
+    console.log(error)
+    res.status(500).json({ message: "Server Error" })
   }
-};
+}
