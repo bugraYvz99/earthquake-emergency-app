@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { getTokenData } from "../thunks/getTokenData"
 import CreateMarker from "../Pages/CreateMarker"
 import MarkerDetails from "../Pages/MarkerDetails"
+import { Rating } from "@mantine/core"
+import RatingInput from "../components/RatingInput"
 
 const Router = () => {
   const dispatch = useDispatch()
@@ -68,6 +70,14 @@ const Router = () => {
             element={
               <Layout>
                 <MarkerDetails />
+              </Layout>
+            }
+          />
+          <Route
+            path="/rate-marker/:markerId"
+            element={
+              <Layout>
+                <RatingInput />
               </Layout>
             }
           />
