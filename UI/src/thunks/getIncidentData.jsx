@@ -6,7 +6,6 @@ export const getIncidentDataByMarkerId = createAsyncThunk(
   "incidents/getIncidentDataByMarkerId",
   async (markerId, thunkAPI) => {
     try {
-      console.log(markerId)
       const response = await axios.get(
         `http://localhost:3000/api/volunteer/incidents/${markerId}`,
         {
@@ -17,7 +16,6 @@ export const getIncidentDataByMarkerId = createAsyncThunk(
       )
 
       const incident = response.data.incident
-      console.log(incident)
       return incident
     } catch (error) {
       console.log(error)
