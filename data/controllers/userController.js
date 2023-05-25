@@ -47,6 +47,7 @@ exports.getUserData = async (req, res) => {
     const user = await User.findOne({ phoneNumber })
     // Return the user data
     res.json({
+      phoneNumber: user.phoneNumber,
       name: user.name,
       lastName: user.lastName,
       role: user.role
