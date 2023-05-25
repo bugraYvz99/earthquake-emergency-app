@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { postMarker } from "../thunks/postMarker"
 import { Card, Input } from "@mantine/core"
 import { useNavigate, useParams } from "react-router-dom"
@@ -77,9 +77,13 @@ const CreateMarker = () => {
       }))
     }
   }
-
+  const user = useSelector((state) => state.user)
+  const userNumber = user.tokenData.phoneNumber
+  const userName = user.tokenData.name
   const handleSubmit = () => {
     const markerData = {
+      userNumber: userNumber,
+      userName: userName,
       position: {
         lat: lat,
         lng: lng
