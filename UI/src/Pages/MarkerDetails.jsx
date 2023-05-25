@@ -2,13 +2,27 @@ import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { getIncidentDataByMarkerId } from "../thunks/getIncidentData"
+import { getMarkerByMarkerId } from "../thunks/getMarkerById"
 
 const MarkerDetails = () => {
   const { markerId } = useParams()
   const [incident, setIncident] = useState({})
+  const [marker, setMarker] = useState({})
   const dispatch = useDispatch()
 
   useEffect(() => {
+    // Markerı almak için getMarkerByMarkerId thunk'ını dispatch edin
+    getMarkerByMarkerId(markerId)
+      .then((marker) => {
+        setMarker(marker)
+        // İşlemlere devam edebilirsiniz...
+      })
+      .catch((error) => {
+        console.error(error)
+        // Hata durumunu ele alabilirsiniz...
+      })
+
+    // İlgili olay verilerini almak için getIncidentDataByMarkerId thunk'ını dispatch edin
     dispatch(getIncidentDataByMarkerId(markerId))
       .unwrap()
       .then((data) => {
@@ -17,12 +31,13 @@ const MarkerDetails = () => {
       .catch((error) => {
         console.log(error)
       })
-  }, [dispatch])
+  }, [dispatch, markerId])
 
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-4">Marker Details</h1>
       <p className="mb-4">Marker ID: {markerId}</p>
+      <p>{marker.rate}</p>
 
       {incident && Object.keys(incident).length > 0 ? (
         <div className="bg-white rounded shadow p-4">
