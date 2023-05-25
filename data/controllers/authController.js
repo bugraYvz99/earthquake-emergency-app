@@ -16,7 +16,7 @@ exports.login = async (req, res) => {
 exports.loginAsVolunteer = async (req, res) => {
   try {
     const { firstName, lastName, phoneNumber } = req.body
-    console.log(req.body.lastname)
+
     const token = await authService.loginAsVolunteer(
       firstName,
       lastName,
