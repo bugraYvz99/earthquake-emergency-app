@@ -7,6 +7,8 @@ const incidentsController = require("../controllers/incidentController")
 
 router.get("/markers", markerController.getAllMarkers)
 router.post("/markers", markerController.createMarker)
+router.get("/markers/:id", markerController.getMarkerByMarkerId)
+
 // User Routes
 router.get("/get-UserData", userController.getUserData)
 // Marker Routes
