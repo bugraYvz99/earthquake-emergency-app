@@ -1,14 +1,14 @@
 const express = require("express")
 const app = express()
-const dbConnect = require("./data/dbConnect")
+const dbConnect = require("../data/dbConnect")
 const cors = require("cors")
-const config = require("./config")
-const auth = require("./authmidlleware")
-const isAdmin = require("./authmidlleware/isAdmin")
+const config = require("../config")
+const auth = require("../authmidlleware")
+const isAdmin = require("../authmidlleware/isAdmin")
 
-const commonRoutes = require("./routes/commonRoutes")
-const adminRouter = require("./routes/adminRoutes")
-const volunteerRouter = require("./routes/volunteerRoutes")
+const commonRoutes = require("../routes/commonRoutes")
+const adminRouter = require("../routes/adminRoutes")
+const volunteerRouter = require("../routes/volunteerRoutes")
 
 app.get("/", (req, res) => {
   res.send("Hello World!")
