@@ -1,6 +1,6 @@
 import { useState } from "react"
-import AdminLogin from "../components/adminLogin"
-import VolunteerLogin from "../components/volunteerLogin"
+import AdminLogin from "../components/AdminLogin"
+import VolunteerLogin from "../components/VolunteerLogin"
 
 export default function LoginPage() {
   const [showVolunteerLogin, setShowVolunteerLogin] = useState(false)
