@@ -22,12 +22,11 @@ const CreateMarker = () => {
     },
     media: [],
     persons: {
-      inside: 0,
-      trapped: 0,
-      rescued: 0,
-      dead: 0,
-      injured: 0,
-      identities: []
+      inside: "",
+      trapped: "",
+      rescued: "",
+      dead: "",
+      injured: ""
     }
   })
   const [address, setAddress] = useState("")

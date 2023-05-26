@@ -13,6 +13,5 @@ router.get("/markers/:id", markerController.getMarkerByMarkerId)
 router.get("/get-UserData", userController.getUserData)
 // Marker Routes
 
-router.post("/saveIncident", incidentsController.createIncidentController)
 router.get("/incidents/:markerId", incidentsController.getIncidentByMarkerId)
 module.exports = router

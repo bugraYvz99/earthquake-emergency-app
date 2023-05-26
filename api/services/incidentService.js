@@ -1,9 +1,9 @@
 const Incident = require("../data/models/incidentModel")
 
-exports.createIncident = async (incidentData) => {
+exports.createIncident = async (incidentData, markerId) => {
   const incident = new Incident(incidentData)
+  incident.markerId = markerId
   await incident.save()
-  console.log("saved")
 }
 exports.getIncidentByMarkerId = async (markerId) => {
   try {
