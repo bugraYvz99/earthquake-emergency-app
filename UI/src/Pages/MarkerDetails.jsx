@@ -10,8 +10,9 @@ const MarkerDetails = () => {
   const [incident, setIncident] = useState([])
   const [marker, setMarker] = useState({})
   const dispatch = useDispatch()
-  console.log(incident)
+  const ownerBackgroundClass = 'bg-blue-200';
 
+console.log(incident)
   useEffect(() => {
     // Markerı almak için getMarkerByMarkerId thunk'ını dispatch edin
     getMarkerByMarkerId(markerId)
@@ -41,32 +42,33 @@ const MarkerDetails = () => {
     <div>
       {Array.isArray(incident) && incident.length > 0 ? (
         incident.map((item) => (
-          <div key={item._id} className="bg-white rounded shadow p-4">
+          <div key={item._id} className={`bg-white rounded shadow p-4 ${item.isOwner ? ownerBackgroundClass : ''}`}
+          >
             <h2 className="text-2xl font-bold mb-2">Incident Details:</h2>
             <h3 className="text-2xl font-bold mb-2">
-              {"Oluşturan kullanıcı:" + item.userName}
+              {"Oluşturan kullanıcı:" + item._doc.userName}
             </h3>
-            <p className="mb-2">Type: {item.type}</p>
-            {item.details && (
+            <p className="mb-2">Type: {item._doc.type}</p>
+            {item._doc.details && (
               <>
-                <p className="mb-2">Column: {item.details.column}</p>
-                <p className="mb-2">Elevator: {item.details.elevator}</p>
-                <p className="mb-2">Floor: {item.details.floor}</p>
-                <p className="mb-2">Roof: {item.details.roof}</p>
-                <p className="mb-2">Stairs: {item.details.stairs}</p>
-                <p className="mb-2">Status: {item.details.status}</p>
-                <p className="mb-2">Wall: {item.details.wall}</p>
+                <p className="mb-2">Column: {item._doc.details.column}</p>
+                <p className="mb-2">Elevator: {item._doc.details.elevator}</p>
+                <p className="mb-2">Floor: {item._doc.details.floor}</p>
+                <p className="mb-2">Roof: {item._doc.details.roof}</p>
+                <p className="mb-2">Stairs: {item._doc.details.stairs}</p>
+                <p className="mb-2">Status: {item._doc.details.status}</p>
+                <p className="mb-2">Wall: {item._doc.details.wall}</p>
               </>
             )}
-            {item.persons && (
+            {item._doc.persons && (
               <div className="mt-4">
                 <h3 className="text-xl font-bold mb-2">Persons:</h3>
                 <ul className="list-disc list-inside">
-                  <li>Dead: {item.persons.dead}</li>
-                  <li>Injured: {item.persons.injured}</li>
-                  <li>Inside: {item.persons.inside}</li>
-                  <li>Rescued: {item.persons.rescued}</li>
-                  <li>Trapped: {item.persons.trapped}</li>
+                  <li>Dead: {item._doc.persons.dead}</li>
+                  <li>Injured: {item._doc.persons.injured}</li>
+                  <li>Inside: {item._doc.persons.inside}</li>
+                  <li>Rescued: {item._doc.persons.rescued}</li>
+                  <li>Trapped: {item._doc.persons.trapped}</li>
                 </ul>
               </div>
             )}

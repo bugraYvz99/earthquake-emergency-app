@@ -21,7 +21,6 @@ const Map = ({ location }) => {
   const [selectedMarker, setSelectedMarker] = useState(null)
 
   const [dbMarkers, setDbMarkers] = useState([])
-  console.log(location)
   const { isLoaded: isApiLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyDXUM99i5wpXdDa8fqqW18TtwHKrQYimyE",
@@ -75,7 +74,7 @@ const Map = ({ location }) => {
     <div style={{ flexGrow: 1 }}>
       {isApiLoaded && (
         <GoogleMap
-          streetView={true}
+          
           mapContainerStyle={containerStyle}
           center={center}
           onClick={handleMapClick}

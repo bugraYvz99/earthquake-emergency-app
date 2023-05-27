@@ -1,15 +1,16 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
 // Define the schema for the incidents collection
 const incidentSchema = new mongoose.Schema({
   phoneNumber: String,
+  userId: String,
   userName: String,
   id: String,
   type: String,
   markerId: String,
   location: {
     lat: Number,
-    long: Number
+    long: Number,
   },
   details: {
     status: String,
@@ -18,14 +19,14 @@ const incidentSchema = new mongoose.Schema({
     stairs: String,
     elevator: String,
     wall: String,
-    column: String
+    column: String,
   },
   media: [
     {
       id: String,
       url: String,
-      type: String
-    }
+      type: String,
+    },
   ],
   persons: {
     inside: Number,
@@ -38,13 +39,13 @@ const incidentSchema = new mongoose.Schema({
         id: String,
         name: String,
         surname: String,
-        tcNo: String
-      }
-    ]
-  }
-})
+        tcNo: String,
+      },
+    ],
+  },
+});
 
 // Create the incidents model
-const Incident = mongoose.model("Incident", incidentSchema)
+const Incident = mongoose.model("Incident", incidentSchema);
 
-module.exports = Incident
+module.exports = Incident;
