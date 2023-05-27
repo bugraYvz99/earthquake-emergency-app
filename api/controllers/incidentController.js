@@ -31,7 +31,6 @@ exports.createIncidentForMarker = async (req, res) => {
   try {
     const { markerId, incidentData } = req.body;
     const { phoneNumber, name, _id } = req.user;
-    console.log(incidentData);
     const incident = await incidentService.createIncident(
       incidentData,
       markerId,
@@ -48,5 +47,34 @@ exports.createIncidentForMarker = async (req, res) => {
     res
       .status(500)
       .json({ error: "An error occurred while creating the incident" });
+  }
+};
+exports.updateIncident = async (req, res) => {
+  try {
+    const { markerId } = req.params;
+    const { incidentData } = req.body;
+    const { _id: userId } = req.user;
+
+    const updatedIncident = await incidentService.updateIncident(
+      markerId,
+      incidentData,
+      userId
+    );
+
+    if (!updatedIncident) {
+      return res.status(404).json({ message: "Incident not found" });
+    }
+
+    res
+      .status(200)
+      .json({
+        message: "Incident updated successfully",
+        incident: updatedIncident,
+      });
+  } catch (error) {
+    console.error("Error updating incident:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while updating the incident" });
   }
 };

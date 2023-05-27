@@ -38,6 +38,20 @@ console.log(incident)
   const handleCreateIncident = () => {
     navigate(`/create-incident/${markerId}`)
   }
+ 
+  const handleTextChange = (event, incidentId) => {
+    const { value } = event.target;
+    setIncident((prevIncident) =>
+      prevIncident.map((item) =>
+        item._id === incidentId ? { ...item, text: value } : item
+      )
+    );
+  };
+  const handleUpdateIncident = (incidentId) => {
+    // Implement the logic to update the incident with the modified text
+    // You can make an API call or dispatch a Redux action here
+    console.log("Update incident:", incidentId);
+  };
   return (
     <div>
       {Array.isArray(incident) && incident.length > 0 ? (
@@ -72,6 +86,41 @@ console.log(incident)
                 </ul>
               </div>
             )}
+             {item.isOwner ? (
+              <>
+                {item.isEditing ? (
+                  <>
+                    <textarea
+                      className="mb-2"
+                      rows="3"
+                      value={item.text}
+                      onChange={(event) => handleTextChange(event, item._id)}
+                    />
+                    <button
+                      onClick={() => handleUpdateIncident(item._doc._id)}
+                      className="bg-blue-500 text-white px-4 py-2 rounded"
+                    >
+                      Update
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    onClick={() =>
+                      setIncident((prevIncident) =>
+                        prevIncident.map((prevItem) =>
+                          prevItem._id === item._id
+                            ? { ...prevItem, isEditing: true }
+                            : { ...prevItem, isEditing: false }
+                        )
+                      )
+                    }
+                    className="bg-blue-500 text-white px-4 py-2 rounded"
+                  >
+                    Edit
+                  </button>
+                )}
+              </>
+            ) : null}
           </div>
         ))
       ) : (
