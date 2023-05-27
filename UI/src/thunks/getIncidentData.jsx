@@ -15,8 +15,7 @@ export const getIncidentDataByMarkerId = createAsyncThunk(
         }
       )
 
-      const incident = response.data.incident
-      return incident
+      return response.data
     } catch (error) {
       console.log(error)
     }

@@ -1,17 +1,19 @@
 const Incident = require("../data/models/incidentModel")
 
-exports.createIncident = async (incidentData, markerId) => {
+exports.createIncident = async (incidentData, markerId, phoneNumber, name) => {
   const incident = new Incident(incidentData)
   incident.markerId = markerId
+  incident.phoneNumber = phoneNumber
+  incident.userName = name
   await incident.save()
 }
-exports.getIncidentByMarkerId = async (markerId) => {
+exports.getIncidentsByMarkerId = async (markerId) => {
   try {
-    const incident = await Incident.findOne({ markerId })
+    const incidents = await Incident.find({ markerId })
 
-    return incident
+    return incidents
   } catch (error) {
     console.log(error)
-    throw new Error("Error retrieving incident")
+    throw new Error("Error retrieving incidents")
   }
 }

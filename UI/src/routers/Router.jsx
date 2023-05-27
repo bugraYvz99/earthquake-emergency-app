@@ -11,6 +11,7 @@ import CreateMarker from "../Pages/CreateMarker"
 import MarkerDetails from "../Pages/MarkerDetails"
 import { Rating } from "@mantine/core"
 import RatingInput from "../components/RatingInput"
+import { CreateIncident } from "../Pages/CreateIncident"
 
 const Router = () => {
   const dispatch = useDispatch()
@@ -78,6 +79,14 @@ const Router = () => {
             element={
               <Layout>
                 <RatingInput />
+              </Layout>
+            }
+          />
+          <Route
+            path="/create-incident/:markerId"
+            element={
+              <Layout>
+                <CreateIncident />
               </Layout>
             }
           />

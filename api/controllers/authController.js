@@ -22,12 +22,7 @@ exports.loginAsVolunteer = async (req, res) => {
       lastName,
       phoneNumber
     )
-    const response = {
-      firstName,
-      lastName,
-      phoneNumber,
-      token
-    }
+
     res.status(200).json({ success: true, token })
   } catch (err) {
     console.error(err)

@@ -19,33 +19,15 @@ exports.createMarker = async (req, res) => {
     }
 
     // Check if incidentData values are empty
-    const isEmptyIncidentData = Object.values(incidentData.details).every(
-      (value) => value === ""
-    )
-
-    if (isEmptyIncidentData) {
-      // Delete the marker
-      await markerService.deleteMarker(marker._id)
-      return res.status(400).json({
-        success: false,
-        message: "Incident data is empty. Marker deleted."
-      })
-    }
 
     // Assign markerId to incidentData
+    const { phoneNumber, name } = req.user
     const incident = await IncidentService.createIncident(
       incidentData,
-      marker._id
+      marker._id,
+      phoneNumber,
+      name
     )
-
-    if (!incident) {
-      // Delete the marker if creating incident fails
-      await markerService.deleteMarker(marker._id)
-      return res.status(500).json({
-        success: false,
-        message: "Failed to create incident. Marker deleted."
-      })
-    }
 
     res.status(200).json({ success: true, marker })
   } catch (err) {

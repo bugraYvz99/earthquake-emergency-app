@@ -42,7 +42,7 @@ exports.deleteMarker = async (markerId) => {
     }
 
     // Delete the marker
-    await marker.remove()
+    await marker.deleteOne()
 
     // Return true to indicate success
     return true
