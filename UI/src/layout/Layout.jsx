@@ -8,7 +8,7 @@ const Layout = ({ children, RightPanel }) => {
       <div className=" bg-red-500 col-span-1 row-span-1 fixed z-10 w-full">
         <NavbarComponent />
       </div>
-      <div className="bg-gray-400 h-[2000px] col-span-1 row-span-10 mt-20  ">
+      <div className="bg-gray-400 h-[3000px] col-span-1 row-span-10 mt-20  ">
         {children}
       </div>
 

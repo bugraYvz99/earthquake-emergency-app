@@ -10,9 +10,9 @@ const MarkerDetails = () => {
   const [incident, setIncident] = useState([])
   const [marker, setMarker] = useState({})
   const dispatch = useDispatch()
-  const ownerBackgroundClass = 'bg-blue-200';
+  const ownerBackgroundClass = "bg-blue-200"
 
-console.log(incident)
+  console.log(incident)
   useEffect(() => {
     // Markerı almak için getMarkerByMarkerId thunk'ını dispatch edin
     getMarkerByMarkerId(markerId)
@@ -38,25 +38,29 @@ console.log(incident)
   const handleCreateIncident = () => {
     navigate(`/create-incident/${markerId}`)
   }
- 
+
   const handleTextChange = (event, incidentId) => {
-    const { value } = event.target;
+    const { value } = event.target
     setIncident((prevIncident) =>
       prevIncident.map((item) =>
         item._id === incidentId ? { ...item, text: value } : item
       )
-    );
-  };
+    )
+  }
   const handleUpdateIncident = (incidentId) => {
     // Implement the logic to update the incident with the modified text
     // You can make an API call or dispatch a Redux action here
-    console.log("Update incident:", incidentId);
-  };
+    console.log("Update incident:", incidentId)
+  }
   return (
     <div>
       {Array.isArray(incident) && incident.length > 0 ? (
         incident.map((item) => (
-          <div key={item._id} className={`bg-white rounded shadow p-4 ${item.isOwner ? ownerBackgroundClass : ''}`}
+          <div
+            key={item._doc._id}
+            className={`bg-white rounded shadow p-4 ${
+              item.isOwner ? ownerBackgroundClass : ""
+            }`}
           >
             <h2 className="text-2xl font-bold mb-2">Incident Details:</h2>
             <h3 className="text-2xl font-bold mb-2">
@@ -86,7 +90,7 @@ console.log(incident)
                 </ul>
               </div>
             )}
-             {item.isOwner ? (
+            {item.isOwner ? (
               <>
                 {item.isEditing ? (
                   <>
