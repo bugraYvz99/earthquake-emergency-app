@@ -1,30 +1,18 @@
 import React, { useState } from "react"
 import { useParams } from "react-router-dom"
 import { postIncident } from "../thunks/postIncident"
-import { Card, Input } from "@mantine/core"
+import { Card, Input, Select } from "@mantine/core"
+import EarthquakeEvent from "../incident-types/EartquakeEvent"
+import FireEvent from "../incident-types/FireEvent"
+import GasLeak from "../incident-types/GasLeak"
 
 export const CreateIncident = () => {
   const { markerId } = useParams()
   console.log(markerId)
   const [incidentData, setIncidentData] = useState({
     type: "",
-    details: {
-      status: "",
-      roof: "",
-      floor: "",
-      stairs: "",
-      elevator: "",
-      wall: "",
-      column: ""
-    },
-    media: [],
-    persons: {
-      inside: "",
-      trapped: "",
-      rescued: "",
-      dead: "",
-      injured: ""
-    }
+    details: {},
+    media: []
   })
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -39,11 +27,16 @@ export const CreateIncident = () => {
         }
       }))
     } else if (category === "persons") {
+      // Updated condition for "persons" category
       setIncidentData((prevState) => ({
         ...prevState,
-        persons: {
-          ...prevState.persons,
-          [fieldName]: value
+        details: {
+          // Updated to store "persons" data within "details"
+          ...prevState.details,
+          persons: {
+            ...prevState.details.persons,
+            [fieldName]: value
+          }
         }
       }))
     } else {
@@ -57,6 +50,7 @@ export const CreateIncident = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
+      console.log(incidentData)
       await postIncident(markerId, incidentData)
       console.log("başarılı")
       // Handle success, such as showing a success message or redirecting to a different page
@@ -66,128 +60,60 @@ export const CreateIncident = () => {
     }
     // Reset the form or perform any other necessary actions
   }
+  const renderEventComponent = () => {
+    const { type } = incidentData
 
-  return(
-  <div className="grid gap-4">
-      {/* Input fields for incident data */}
-      <Card>
-        <h1>Bina bilgileri</h1>
-        <Input.Wrapper label="Olay tipi">
-          <Input
-            type="text"
-            name="type"
-            value={incidentData.type}
-            onChange={handleInputChange}
+    switch (type) {
+      case "earthquake":
+        return (
+          <EarthquakeEvent
+            handleInputChange={handleInputChange}
+            incidentData={incidentData}
           />
-        </Input.Wrapper>
-        <Input.Wrapper label="Binanın durumu">
-          <Input
-            type="text"
-            name="details.status"
-            value={incidentData.details.status}
-            onChange={handleInputChange}
-          />{" "}
-        </Input.Wrapper>{" "}
-        <Input.Wrapper label="Çatı hasarı">
-          <Input
-            type="text"
-            name="details.roof"
-            value={incidentData.details.roof}
-            onChange={handleInputChange}
-          />{" "}
-        </Input.Wrapper>{" "}
-        <Input.Wrapper label="Zemin hasarı">
-          <Input
-            type="text"
-            name="details.floor"
-            value={incidentData.details.floor}
-            onChange={handleInputChange}
-          />{" "}
-        </Input.Wrapper>{" "}
-        <Input.Wrapper label="Merdiven hasarı">
-          <Input
-            type="text"
-            name="details.stairs"
-            value={incidentData.details.stairs}
-            onChange={handleInputChange}
-          />{" "}
-        </Input.Wrapper>{" "}
-        <Input.Wrapper label="Asansör durumu">
-          <Input
-            type="text"
-            name="details.elevator"
-            value={incidentData.details.elevator}
-            onChange={handleInputChange}
-          />{" "}
-        </Input.Wrapper>{" "}
-        <Input.Wrapper label="Duvar hasarı">
-          <Input
-            type="text"
-            name="details.wall"
-            value={incidentData.details.wall}
-            onChange={handleInputChange}
-          />{" "}
-        </Input.Wrapper>{" "}
-        <Input.Wrapper label="Kolon hasarı">
-          <Input
-            type="text"
-            name="details.column"
-            value={incidentData.details.column}
-            onChange={handleInputChange}
-          />{" "}
-        </Input.Wrapper>{" "}
-      </Card>
-      <Card>
-        <h1>İnsan bilgileri</h1>
-        <Input.Wrapper label="İçeride ki insan sayısı">
-          <Input
-            type="number"
-            name="persons.inside"
-            value={incidentData.persons.inside}
-            onChange={handleInputChange}
-          />{" "}
-        </Input.Wrapper>{" "}
-        <Input.Wrapper label="Enkaz altında tespit edilen insan sayısı">
-          <Input
-            type="number"
-            name="persons.trapped"
-            value={incidentData.persons.trapped}
-            onChange={handleInputChange}
-          />{" "}
-        </Input.Wrapper>{" "}
-        <Input.Wrapper label="Enkazdan kurtarılmış insan sayısı">
-          <Input
-            type="number"
-            name="persons.rescued"
-            value={incidentData.persons.rescued}
-            onChange={handleInputChange}
-          />{" "}
-        </Input.Wrapper>{" "}
-        <Input.Wrapper label="Vefat eden insan sayısı">
-          <Input
-            type="number"
-            name="persons.dead"
-            value={incidentData.persons.dead}
-            onChange={handleInputChange}
-          />{" "}
-        </Input.Wrapper>{" "}
-        <Input.Wrapper label="Yaralı İnsan sayısı">
-          <Input
-            type="number"
-            name="persons.injured"
-            value={incidentData.persons.injured}
-            onChange={handleInputChange}
-          />{" "}
-        </Input.Wrapper>{" "}
-      </Card>
-      <Input.Wrapper>
-        <Input
-          type="text"
-          name="persons.identities"
-          value={incidentData.persons.identities}
-          onChange={handleInputChange}
+        )
+      case "fire":
+        return (
+          <FireEvent
+            handleInputChange={handleInputChange}
+            incidentData={incidentData}
+          />
+        )
+      case "gas_leak":
+        return (
+          <GasLeak
+            handleInputChange={handleInputChange}
+            incidentData={incidentData}
+          />
+        )
+      default:
+        return null
+    }
+  }
+  return (
+    <div className="grid gap-4">
+      {/* Input fields for incident data */}
+      <Card h={1000} className=" ">
+        <Select
+          className=" "
+          pos={"relative"}
+          label={"Olay tipi"}
+          dropdownPosition="bottom"
+          defaultValue={"earthquake"}
+          data={[
+            { label: "Yangın Bilgisi", value: "fire" },
+            { label: "Gaz Kaçağı Bilgisi", value: "gas_leak" },
+            { label: "Genel Hasar Bilgisi", value: "earthquake" }
+            // Diğer tipleri buraya ekleyebilirsiniz
+          ]}
+          placeholder="Olay tipi"
+          value={incidentData.type}
+          onChange={(value) =>
+            setIncidentData((prevState) => ({ ...prevState, type: value }))
+          }
         />
-      </Input.Wrapper>
+        {renderEventComponent()}
+      </Card>
+
       <button onClick={handleSubmit}>Create Marker</button>
     </div>
   )
