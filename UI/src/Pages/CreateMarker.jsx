@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { postMarker } from "../thunks/postMarker"
-import { Card, Input, Select } from "@mantine/core"
+import { Button, Card, Input, Select } from "@mantine/core"
 import { useNavigate, useParams } from "react-router-dom"
 import axios from "axios"
 import EarthquakeEvent from "../incident-types/EartquakeEvent"
@@ -14,7 +14,9 @@ const CreateMarker = () => {
   const dispatch = useDispatch()
   const [incidentData, setIncidentData] = useState({
     type: "",
-    details: {},
+    details: {
+      personInfos: []
+    },
     media: []
   })
   const [address, setAddress] = useState("")
@@ -69,6 +71,34 @@ const CreateMarker = () => {
       }))
     }
   }
+  const handleInputChange2 = (e) => {
+    const { name, value } = e.target
+    const [category, fieldName, personIndex, subFieldName] = name.split(".")
+
+    if (category === "details" && fieldName === "personInfos") {
+      const index = parseInt(personIndex, 10)
+      setIncidentData((prevState) => {
+        const updatedPersonInfos = [...prevState.details.personInfos]
+        updatedPersonInfos[index] = {
+          ...updatedPersonInfos[index],
+          [subFieldName]: value
+        }
+
+        return {
+          ...prevState,
+          details: {
+            ...prevState.details,
+            personInfos: updatedPersonInfos
+          }
+        }
+      })
+    } else {
+      setIncidentData((prevState) => ({
+        ...prevState,
+        [name]: value
+      }))
+    }
+  }
 
   const renderEventComponent = () => {
     const { type } = incidentData
@@ -77,6 +107,8 @@ const CreateMarker = () => {
       case "earthquake":
         return (
           <EarthquakeEvent
+            setIncidentData={setIncidentData}
+            handleInputChange2={handleInputChange2}
             handleInputChange={handleInputChange}
             incidentData={incidentData}
           />
@@ -84,6 +116,8 @@ const CreateMarker = () => {
       case "fire":
         return (
           <FireEvent
+            setIncidentData={setIncidentData}
+            handleInputChange2={handleInputChange2}
             handleInputChange={handleInputChange}
             incidentData={incidentData}
           />
@@ -91,6 +125,8 @@ const CreateMarker = () => {
       case "gas_leak":
         return (
           <GasLeak
+            setIncidentData={setIncidentData}
+            handleInputChange2={handleInputChange2}
             handleInputChange={handleInputChange}
             incidentData={incidentData}
           />
@@ -118,7 +154,7 @@ const CreateMarker = () => {
   return (
     <div className="grid gap-4">
       {/* Input fields for incident data */}
-      <Card h={1000} className=" ">
+      <Card h="100%" className=" pb-32">
         <Select
           className=" "
           pos={"relative"}
@@ -137,9 +173,10 @@ const CreateMarker = () => {
           }
         />
         {renderEventComponent()}
+        <Button className="mt-5" variant="outline" onClick={handleSubmit}>
+          Create Marker
+        </Button>
       </Card>
-
-      <button onClick={handleSubmit}>Create Marker</button>
     </div>
   )
 }

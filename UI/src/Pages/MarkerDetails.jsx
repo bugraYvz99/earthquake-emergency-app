@@ -9,6 +9,8 @@ import ShowEarthquake from "../incident-show/ShowEarthquake"
 
 import ShowGasLeak from "../incident-show/ShowGasLeak"
 import ShowFire from "../incident-show/ShowFire"
+import { Button } from "@mantine/core"
+import MarkerDetailMap from "../components/MarkerDetailMap"
 
 const MarkerDetails = () => {
   const navigate = useNavigate()
@@ -23,6 +25,7 @@ const MarkerDetails = () => {
     getMarkerByMarkerId(markerId)
       .then((marker) => {
         setMarker(marker)
+
         // İşlemlere devam edebilirsiniz...
       })
       .catch((error) => {
@@ -57,7 +60,6 @@ const MarkerDetails = () => {
       })
     console.log("Delete incident:", incidentId)
   }
-
   const renderIncidentComponent = (incidentType, incident) => {
     switch (incidentType) {
       case "gas_leak":
@@ -73,11 +75,12 @@ const MarkerDetails = () => {
 
   return (
     <div>
+      {marker && <MarkerDetailMap markerData={marker} />}
       {Array.isArray(incident) && incident.length > 0 ? (
         incident.map((item) => (
           <div
             key={item._doc._id}
-            className={` ${
+            className={`grid grid-flow-row grid-cols-2 mt-4  ${
               item.isOwner
                 ? ownerBackgroundClass
                 : "bg-white rounded shadow p-4"
@@ -87,8 +90,8 @@ const MarkerDetails = () => {
             <h3 className="text-2xl font-bold mb-2">
               {"Oluşturan kullanıcı:" + item._doc.userName}
             </h3>
-            <p className="mb-2">Type: {item._doc.type}</p>
             {renderIncidentComponent(item._doc.type, item)}
+            <p>{marker.address}</p>
             {item.isOwner && (
               <div>
                 <button className="bg-blue-500 text-white px-4 py-2 rounded">
@@ -107,7 +110,9 @@ const MarkerDetails = () => {
       ) : (
         <p>No incident data available.</p>
       )}
-      <button onClick={handleCreateIncident}>Bilgi ekle</button>
+      <Button variant="filled" onClick={handleCreateIncident}>
+        Bilgi ekle
+      </Button>
     </div>
   )
 }

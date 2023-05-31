@@ -11,7 +11,9 @@ export const CreateIncident = () => {
   console.log(markerId)
   const [incidentData, setIncidentData] = useState({
     type: "",
-    details: {},
+    details: {
+      personInfos: []
+    },
     media: []
   })
   const handleInputChange = (e) => {
@@ -46,7 +48,34 @@ export const CreateIncident = () => {
       }))
     }
   }
+  const handleInputChange2 = (e) => {
+    const { name, value } = e.target
+    const [category, fieldName, personIndex, subFieldName] = name.split(".")
 
+    if (category === "details" && fieldName === "personInfos") {
+      const index = parseInt(personIndex, 10)
+      setIncidentData((prevState) => {
+        const updatedPersonInfos = [...prevState.details.personInfos]
+        updatedPersonInfos[index] = {
+          ...updatedPersonInfos[index],
+          [subFieldName]: value
+        }
+
+        return {
+          ...prevState,
+          details: {
+            ...prevState.details,
+            personInfos: updatedPersonInfos
+          }
+        }
+      })
+    } else {
+      setIncidentData((prevState) => ({
+        ...prevState,
+        [name]: value
+      }))
+    }
+  }
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
@@ -67,6 +96,8 @@ export const CreateIncident = () => {
       case "earthquake":
         return (
           <EarthquakeEvent
+            setIncidentData={setIncidentData}
+            handleInputChange2={handleInputChange2}
             handleInputChange={handleInputChange}
             incidentData={incidentData}
           />
@@ -74,6 +105,8 @@ export const CreateIncident = () => {
       case "fire":
         return (
           <FireEvent
+            setIncidentData={setIncidentData}
+            handleInputChange2={handleInputChange2}
             handleInputChange={handleInputChange}
             incidentData={incidentData}
           />
@@ -81,6 +114,8 @@ export const CreateIncident = () => {
       case "gas_leak":
         return (
           <GasLeak
+            setIncidentData={setIncidentData}
+            handleInputChange2={handleInputChange2}
             handleInputChange={handleInputChange}
             incidentData={incidentData}
           />
@@ -92,7 +127,7 @@ export const CreateIncident = () => {
   return (
     <div className="grid gap-4">
       {/* Input fields for incident data */}
-      <Card h={1000} className=" ">
+      <Card h="100%" className=" pb-32">
         <Select
           className=" "
           pos={"relative"}

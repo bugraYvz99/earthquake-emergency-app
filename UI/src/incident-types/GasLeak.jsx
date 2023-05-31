@@ -1,7 +1,51 @@
 import React from "react"
-import { Card, Input } from "@mantine/core"
+import { Button, Card, Input } from "@mantine/core"
 
-const GasLeak = ({ handleInputChange, incidentData }) => {
+const GasLeak = ({
+  handleInputChange2,
+  handleInputChange,
+  incidentData,
+  setIncidentData
+}) => {
+  const renderPersonInputs = () => {
+    if (incidentData.details.personInfos.length === 0) {
+      return null
+    }
+    return incidentData.details.personInfos.map((person, index) => (
+      <div className=" mt-4" key={index}>
+        <Input
+          name={`details.personInfos.${index}.name`}
+          value={person.name}
+          onChange={handleInputChange2}
+          placeholder="Name"
+        />
+        <Input
+          name={`details.personInfos.${index}.surname`}
+          value={person.surname}
+          onChange={handleInputChange2}
+          placeholder="Surname"
+        />
+        <Input
+          name={`details.personInfos.${index}.tcNo`}
+          value={person.tcNo}
+          onChange={handleInputChange2}
+          placeholder="TC No"
+        />
+      </div>
+    ))
+  }
+  const handleAddPerson = () => {
+    setIncidentData((prevState) => ({
+      ...prevState,
+      details: {
+        ...prevState.details,
+        personInfos: [
+          ...prevState.details.personInfos,
+          { name: "", surname: "", tcNo: "" }
+        ]
+      }
+    }))
+  }
   return (
     <Card>
       <h1>Gaz Kaçağı Bilgileri</h1>
@@ -24,7 +68,10 @@ const GasLeak = ({ handleInputChange, incidentData }) => {
           onChange={handleInputChange}
         />
       </Input.Wrapper>
-      {/* Daha fazla input alanını buraya ekleyebilirsiniz */}
+      {renderPersonInputs()}
+      <Button variant="outline" onClick={handleAddPerson}>
+        Add Person
+      </Button>
     </Card>
   )
 }

@@ -74,7 +74,6 @@ const Map = ({ location }) => {
     <div style={{ flexGrow: 1 }}>
       {isApiLoaded && (
         <GoogleMap
-          
           mapContainerStyle={containerStyle}
           center={center}
           onClick={handleMapClick}
@@ -83,6 +82,10 @@ const Map = ({ location }) => {
           {dbMarkers &&
             dbMarkers.map((marker, index) => (
               <Marker
+                icon={{
+                  url: "/logo.png",
+                  scaledSize: new window.google.maps.Size(30, 30)
+                }}
                 key={index}
                 position={marker.position}
                 title={marker.address}

@@ -1,12 +1,13 @@
-import { Card } from "@mantine/core"
+import { Card, Text } from "@mantine/core"
 import React from "react"
 import { Link } from "react-router-dom"
+
 const ShowEarthquake = ({ incident }) => {
-  console.log(incident)
   const { details } = incident._doc
 
   return (
     <div>
+      <h1>Deprem Bilgileri</h1>
       <Card>
         {details.column && <p className="mb-2">Column: {details.column}</p>}
         {details.elevator && (
@@ -20,6 +21,7 @@ const ShowEarthquake = ({ incident }) => {
       </Card>
       {details.persons && (
         <Card>
+          <h2>İnsan bilgileri</h2>
           <ul className="list-disc list-inside">
             {details.persons.dead && <li>Dead: {details.persons.dead}</li>}
             {details.persons.injured && (

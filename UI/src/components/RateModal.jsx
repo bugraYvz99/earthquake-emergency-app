@@ -12,7 +12,6 @@ const RateModal = ({ onConfirm, onCancel, userRole, selectedMarker }) => {
 
   const handleClose = () => {
     setOpened(false)
-    onCancel()
   }
 
   return (
@@ -33,7 +32,7 @@ const RateModal = ({ onConfirm, onCancel, userRole, selectedMarker }) => {
             <Button variant="outline" uppercase onClick={handleConfirm}>
               Puan ver
             </Button>
-            <Button variant="outline" uppercase onClick={handleClose}>
+            <Button variant="outline" uppercase onClick={onCancel}>
               Detayları Görüntüle
             </Button>
           </>
@@ -42,7 +41,7 @@ const RateModal = ({ onConfirm, onCancel, userRole, selectedMarker }) => {
             <Button variant="outline" uppercase onClick={handleConfirm}>
               Detayları Görüntüle
             </Button>
-            <Button variant="outline" uppercase onClick={handleClose}>
+            <Button variant="outline" uppercase onClick={onCancel}>
               Geri dön
             </Button>
           </>
