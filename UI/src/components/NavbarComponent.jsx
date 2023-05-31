@@ -10,7 +10,9 @@ import {
   IconReceipt2,
   IconSwitchHorizontal,
   IconLogout,
-  IconMenu2
+  IconMenu2,
+  IconSearch,
+  IconHelpCircle
 } from "@tabler/icons-react"
 import { useDispatch } from "react-redux"
 import { logout } from "../thunks/logout"
@@ -103,12 +105,13 @@ const NavbarComponent = () => {
 
   const data = [
     { link: "/page1", label: "Olay Bildir", icon: IconBellRinging },
-    { link: "/billing", label: "Acil Yardım Hatları", icon: IconReceipt2 },
+    {
+      link: "/emergency-calls",
+      label: "Acil Yardım Hatları",
+      icon: IconHelpCircle
+    },
     { link: "/Hasarlar", label: "Hasarlı Binalar", icon: IconFingerprint },
-    { link: "/ssh-keys", label: "Yardım İstekleri", icon: IconKey },
-    { link: "/databases", label: "Databases", icon: IconDatabaseImport },
-    { link: "/authentication", label: "Authentication", icon: Icon2fa },
-    { link: "/other-settings", label: "Other Settings", icon: IconSettings }
+    { link: "/search-page", label: "Arama Sayfası", icon: IconSearch }
   ]
 
   function NavbarSimple() {
@@ -152,15 +155,6 @@ const NavbarComponent = () => {
         </Navbar.Section>
         {isOpen && (
           <Navbar.Section className={classes.footer}>
-            <Link
-              to="#"
-              className={classes.link}
-              onClick={(event) => event.preventDefault()}
-            >
-              <IconSwitchHorizontal className={classes.linkIcon} stroke={1.5} />
-              <span>Change account</span>
-            </Link>
-
             <Link to="/login" className={classes.link} onClick={handleLogout}>
               <IconLogout className={classes.linkIcon} stroke={1.5} />
               <span>Logout</span>

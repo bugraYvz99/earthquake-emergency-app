@@ -12,6 +12,8 @@ import MarkerDetails from "../Pages/MarkerDetails"
 import { Rating } from "@mantine/core"
 import RatingInput from "../components/RatingInput"
 import { CreateIncident } from "../Pages/CreateIncident"
+import { SearchPage } from "../Pages/SearchPage"
+import { EmergencyCalls } from "../Pages/EmergencyCalls"
 
 const Router = () => {
   const dispatch = useDispatch()
@@ -87,6 +89,22 @@ const Router = () => {
             element={
               <Layout>
                 <CreateIncident />
+              </Layout>
+            }
+          />
+          <Route
+            path="/search-page"
+            element={
+              <Layout>
+                <SearchPage />
+              </Layout>
+            }
+          />
+          <Route
+            path="/emergency-calls"
+            element={
+              <Layout>
+                <EmergencyCalls />
               </Layout>
             }
           />
