@@ -26,10 +26,10 @@ const Router = () => {
   // Token doğrulamasını yap
   useEffect(() => {
     const token = localStorage.getItem("token")
-    if (token) {
+    if (token && !isAuthenticated) {
       dispatch(getTokenData(token))
     }
-  }, [dispatch])
+  }, [dispatch, isAuthenticated])
 
   // Token doğrulama durumuna göre yönlendirme yap
   const renderRoutes = () => {
@@ -114,6 +114,20 @@ const Router = () => {
       return <Navigate to="/login" />
     }
   }
+  useEffect(() => {
+    const handleTokenDelete = () => {
+      if (!localStorage.getItem("token")) {
+        // Token silindiğinde kullanıcıyı /login sayfasına yönlendir
+        window.location.href = "/login"
+      }
+    }
+
+    window.addEventListener("storage", handleTokenDelete)
+
+    return () => {
+      window.removeEventListener("storage", handleTokenDelete)
+    }
+  }, [])
 
   return (
     <Routes>

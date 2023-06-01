@@ -12,7 +12,8 @@ import {
   IconLogout,
   IconMenu2,
   IconSearch,
-  IconHelpCircle
+  IconHelpCircle,
+  IconHomeSearch
 } from "@tabler/icons-react"
 import { useDispatch } from "react-redux"
 import { logout } from "../thunks/logout"
@@ -110,7 +111,7 @@ const NavbarComponent = () => {
       label: "Acil Yardım Hatları",
       icon: IconHelpCircle
     },
-    { link: "/Hasarlar", label: "Hasarlı Binalar", icon: IconFingerprint },
+    { link: "/Hasarlar", label: "Hasarlı Binalar", icon: IconHomeSearch },
     { link: "/search-page", label: "Arama Sayfası", icon: IconSearch }
   ]
 
