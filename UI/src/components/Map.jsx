@@ -71,7 +71,7 @@ const Map = ({ location }) => {
     }
   }
   return (
-    <div style={{ flexGrow: 1 }}>
+    <div className=" flex justify-center" style={{ flexGrow: 1 }}>
       {isApiLoaded && (
         <GoogleMap
           mapContainerStyle={containerStyle}
