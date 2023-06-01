@@ -5,6 +5,17 @@ exports.createMarker = async (req, res) => {
   try {
     const { userName, userNumber, position, address, incidentData } = req.body
     const { phoneNumber, name, _id } = req.user
+
+    if (
+      !incidentData ||
+      Object.keys(incidentData).length === 0 ||
+      !incidentData.type
+    ) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Incident data is empty or invalid" })
+    }
+
     const marker = await markerService.createMarker(
       userName,
       userNumber,
@@ -12,17 +23,16 @@ exports.createMarker = async (req, res) => {
       address,
       _id
     )
+
     console.log(incidentData)
+
     if (!marker) {
       return res
         .status(500)
         .json({ success: false, message: "Marker could not be created" })
     }
 
-    // Check if incidentData values are empty
-
     // Assign markerId to incidentData
-
     const incident = await IncidentService.createIncident(
       incidentData,
       marker._id,
@@ -68,12 +78,27 @@ exports.rateMarker = async (req, res) => {
 exports.getAllMarkers = async (req, res) => {
   try {
     const markers = await markerService.getAllMarkers()
-    res.status(200).json({ success: true, markers })
+    const markersWithIncidents = []
+
+    // Check if each marker has any incidents
+    for (const marker of markers) {
+      const incidents = await IncidentService.getIncidentsByMarkerId(marker._id)
+      if (incidents.length === 0) {
+        // No incidents associated with the marker, delete it
+        await markerService.deleteMarker(marker._id)
+      } else {
+        // At least one incident associated with the marker, include it in the response
+        markersWithIncidents.push(marker)
+      }
+    }
+
+    res.status(200).json({ success: true, markers: markersWithIncidents })
   } catch (err) {
     console.error(err)
     res.status(500).json({ success: false, message: "Failed to get markers" })
   }
 }
+
 exports.getMarkerByMarkerId = async (req, res) => {
   const { id } = req.params
 
