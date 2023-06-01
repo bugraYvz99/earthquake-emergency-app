@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose")
 
 const markerSchema = new mongoose.Schema({
   userId: String,
@@ -6,12 +6,12 @@ const markerSchema = new mongoose.Schema({
   userName: { type: String },
   position: {
     lat: { type: Number },
-    lng: { type: Number },
+    lng: { type: Number }
   },
   address: { type: String },
-  rate: { type: Number, default: 0 },
-});
+  ratings: { type: [Number], default: [] }
+})
 
-const Marker = mongoose.model("Marker", markerSchema);
+const Marker = mongoose.model("Marker", markerSchema)
 
-module.exports = Marker;
+module.exports = Marker

@@ -53,7 +53,8 @@ exports.createMarker = async (req, res) => {
 exports.rateMarker = async (req, res) => {
   try {
     const markerId = req.params.markerId // Puanlanacak marker'ın _id bilgisi
-    console.log(markerId)
+    const { puan } = req.body
+
     const marker = await Marker.findById(markerId)
 
     if (!marker) {
@@ -61,8 +62,8 @@ exports.rateMarker = async (req, res) => {
     }
 
     // Puanlama işlemi
-    marker.rate = req.body.puan
-    console.log(marker.rate)
+    marker.ratings.push(puan)
+    console.log(puan)
 
     await marker.save()
 
@@ -75,6 +76,7 @@ exports.rateMarker = async (req, res) => {
     })
   }
 }
+
 exports.getAllMarkers = async (req, res) => {
   try {
     const markers = await markerService.getAllMarkers()
