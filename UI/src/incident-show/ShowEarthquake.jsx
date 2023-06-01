@@ -1,4 +1,4 @@
-import { Card, Text } from "@mantine/core"
+import { Card, Divider, Text } from "@mantine/core"
 import React from "react"
 import { Link } from "react-router-dom"
 
@@ -7,8 +7,8 @@ const ShowEarthquake = ({ incident }) => {
 
   return (
     <div>
-      <h1>Deprem Bilgileri</h1>
-      <Card>
+      <h2 className="text-xl font-bold mb-5">Deprem Bilgileri</h2>
+      <div className>
         {details.column && <p className="mb-2">Sütun: {details.column}</p>}
         {details.elevator && (
           <p className="mb-2">Asansör: {details.elevator}</p>
@@ -18,10 +18,10 @@ const ShowEarthquake = ({ incident }) => {
         {details.stairs && <p className="mb-2">Merdiven: {details.stairs}</p>}
         {details.status && <p className="mb-2">Durum: {details.status}</p>}
         {details.wall && <p className="mb-2">Duvar: {details.wall}</p>}
-      </Card>
+      </div>
+      <Divider label="İnsan Bilgileri" w="100%" c={"blue"} size={"lg"} />
       {details.persons && (
-        <Card>
-          <h2>İnsan Bilgileri</h2>
+        <div>
           <ul className="list-disc list-inside">
             {details.persons.dead && <li>Ölü: {details.persons.dead}</li>}
             {details.persons.injured && (
@@ -37,7 +37,7 @@ const ShowEarthquake = ({ incident }) => {
               <li>Mahsur: {details.persons.trapped}</li>
             )}
           </ul>
-        </Card>
+        </div>
       )}
     </div>
   )

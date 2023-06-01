@@ -21,14 +21,17 @@ const DataShowPage = () => {
     dispatch(selectMarker(marker))
     // Burada seçilen markerın yol tarifi gösterme işlemlerini yapabilirsiniz
   }
+  console.log(dbMarkers)
   const rows = dbMarkers.map((marker, index) => (
-    <tr
-      className="relative top-10 right-2"
-      key={index}
-      onClick={() => handleMarkerClick(marker)}
-    >
+    <tr className="" key={index} onClick={() => handleMarkerClick(marker)}>
       <td>{marker.address}</td>
-      <td>{marker.rate}</td>
+      <td>
+        {marker.ratings.length > 0
+          ? (
+              marker.ratings.reduce((a, b) => a + b) / marker.ratings.length
+            ).toFixed(2)
+          : 0}
+      </td>
     </tr>
   ))
 
@@ -37,8 +40,8 @@ const DataShowPage = () => {
       <Table>
         <thead>
           <tr className="">
-            <td className="fixed top-18">Adres</td>
-            <td className="fixed top-20 right-5">Puan</td>
+            <td className="">Adres</td>
+            <td className="">Puan</td>
           </tr>
         </thead>
         <tbody>{rows}</tbody>

@@ -80,16 +80,12 @@ const MarkerDetails = () => {
         incident.map((item) => (
           <div
             key={item._doc._id}
-            className={`grid grid-flow-row grid-cols-2 mt-4  ${
+            className={`grid grid-flow-row grid-cols-2 mx-2 mt-4 ${
               item.isOwner
                 ? ownerBackgroundClass
                 : "bg-white rounded shadow p-4"
             }`}
           >
-            <h2 className="text-2xl font-bold mb-2">Olay bilgileri</h2>
-            <h3 className="text-2xl font-bold mb-2">
-              {"Oluşturan kullanıcı:" + item._doc.userName}
-            </h3>
             {renderIncidentComponent(item._doc.type, item)}
             <p>{marker.address}</p>
             {item.isOwner && (

@@ -1,13 +1,15 @@
+import { Divider } from "@mantine/core"
 import React from "react"
 
 const ShowFire = ({ incident }) => {
   return (
     <div>
-      <h1>Yangın Bilgileri</h1>
+      <h2 className="text-xl font-bold mb-5">Yangın Bilgileri</h2>
       <p className="mb-2">
         {incident._doc.details.fireStuation &&
           "Yangın durumu: " + incident._doc.details.fireStuation}
       </p>
+      <Divider label="İnsan Bilgileri" w="100%" c={"blue"} size={"lg"} />
       {incident._doc.details.persons && (
         <p className="mb-2">
           {incident._doc.details.fireStuation &&

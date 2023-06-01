@@ -83,7 +83,7 @@ const Map = ({ location }) => {
             dbMarkers.map((marker, index) => (
               <Marker
                 icon={{
-                  url: "/logo.png",
+                  url: "/earthquake.png",
                   scaledSize: new window.google.maps.Size(30, 30)
                 }}
                 key={index}
