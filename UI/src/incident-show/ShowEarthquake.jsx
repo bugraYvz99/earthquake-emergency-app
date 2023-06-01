@@ -9,32 +9,32 @@ const ShowEarthquake = ({ incident }) => {
     <div>
       <h1>Deprem Bilgileri</h1>
       <Card>
-        {details.column && <p className="mb-2">Column: {details.column}</p>}
+        {details.column && <p className="mb-2">Sütun: {details.column}</p>}
         {details.elevator && (
-          <p className="mb-2">Elevator: {details.elevator}</p>
+          <p className="mb-2">Asansör: {details.elevator}</p>
         )}
-        {details.floor && <p className="mb-2">Floor: {details.floor}</p>}
-        {details.roof && <p className="mb-2">Roof: {details.roof}</p>}
-        {details.stairs && <p className="mb-2">Stairs: {details.stairs}</p>}
-        {details.status && <p className="mb-2">Status: {details.status}</p>}
-        {details.wall && <p className="mb-2">Wall: {details.wall}</p>}
+        {details.floor && <p className="mb-2">Kat: {details.floor}</p>}
+        {details.roof && <p className="mb-2">Çatı: {details.roof}</p>}
+        {details.stairs && <p className="mb-2">Merdiven: {details.stairs}</p>}
+        {details.status && <p className="mb-2">Durum: {details.status}</p>}
+        {details.wall && <p className="mb-2">Duvar: {details.wall}</p>}
       </Card>
       {details.persons && (
         <Card>
-          <h2>İnsan bilgileri</h2>
+          <h2>İnsan Bilgileri</h2>
           <ul className="list-disc list-inside">
-            {details.persons.dead && <li>Dead: {details.persons.dead}</li>}
+            {details.persons.dead && <li>Ölü: {details.persons.dead}</li>}
             {details.persons.injured && (
-              <li>Injured: {details.persons.injured}</li>
+              <li>Yaralı: {details.persons.injured}</li>
             )}
             {details.persons.inside && (
-              <li>Inside: {details.persons.inside}</li>
+              <li>İçeride: {details.persons.inside}</li>
             )}
             {details.persons.rescued && (
-              <li>Rescued: {details.persons.rescued}</li>
+              <li>Kurtarıldı: {details.persons.rescued}</li>
             )}
             {details.persons.trapped && (
-              <li>Trapped: {details.persons.trapped}</li>
+              <li>Mahsur: {details.persons.trapped}</li>
             )}
           </ul>
         </Card>
@@ -42,5 +42,4 @@ const ShowEarthquake = ({ incident }) => {
     </div>
   )
 }
-
 export default ShowEarthquake
