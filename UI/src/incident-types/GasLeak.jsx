@@ -70,7 +70,7 @@ const GasLeak = ({
       </Input.Wrapper>
       {renderPersonInputs()}
       <Button variant="outline" onClick={handleAddPerson}>
-        Add Person
+        Kişi ekle
       </Button>
     </Card>
   )

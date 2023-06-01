@@ -62,11 +62,11 @@ const MarkerDetails = () => {
   }
   const renderIncidentComponent = (incidentType, incident) => {
     switch (incidentType) {
-      case "gas_leak":
+      case "Gaz kaçağı":
         return <ShowGasLeak incident={incident} />
-      case "fire":
+      case "Yangın":
         return <ShowFire incident={incident} />
-      case "earthquake":
+      case "Deprem":
         return <ShowEarthquake incident={incident} />
       default:
         return null

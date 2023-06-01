@@ -104,7 +104,7 @@ const CreateMarker = () => {
     const { type } = incidentData
 
     switch (type) {
-      case "earthquake":
+      case "Deprem":
         return (
           <EarthquakeEvent
             setIncidentData={setIncidentData}
@@ -113,7 +113,7 @@ const CreateMarker = () => {
             incidentData={incidentData}
           />
         )
-      case "fire":
+      case "Yangın":
         return (
           <FireEvent
             setIncidentData={setIncidentData}
@@ -122,7 +122,7 @@ const CreateMarker = () => {
             incidentData={incidentData}
           />
         )
-      case "gas_leak":
+      case "Gaz kaçağı":
         return (
           <GasLeak
             setIncidentData={setIncidentData}
@@ -161,9 +161,9 @@ const CreateMarker = () => {
           label={"Olay tipi"}
           dropdownPosition="bottom"
           data={[
-            { label: "Yangın Bilgisi", value: "fire" },
-            { label: "Gaz Kaçağı Bilgisi", value: "gas_leak" },
-            { label: "Genel Hasar Bilgisi", value: "earthquake" }
+            { label: "Yangın Bilgisi", value: "Yangın" },
+            { label: "Gaz Kaçağı Bilgisi", value: "Gaz kaçağı" },
+            { label: "Genel Hasar Bilgisi", value: "Deprem" }
             // Diğer tipleri buraya ekleyebilirsiniz
           ]}
           placeholder="Olay tipi"
@@ -174,7 +174,7 @@ const CreateMarker = () => {
         />
         {renderEventComponent()}
         <Button className="mt-5" variant="outline" onClick={handleSubmit}>
-          Create Marker
+          Onayla ve haritaya işaretçi oluştur
         </Button>
       </Card>
     </div>

@@ -153,7 +153,7 @@ const EarthquakeEvent = ({
       </Card>
       {renderPersonInputs()}
       <Button variant="outline" onClick={handleAddPerson}>
-        Add Person
+        Kişi ekle
       </Button>
     </div>
   )

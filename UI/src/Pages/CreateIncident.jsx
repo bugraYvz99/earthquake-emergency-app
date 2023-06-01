@@ -88,12 +88,13 @@ export const CreateIncident = () => {
       console.error(error)
     }
     // Reset the form or perform any other necessary actions
+    window.location.href = "/page1"
   }
   const renderEventComponent = () => {
     const { type } = incidentData
 
     switch (type) {
-      case "earthquake":
+      case "Deprem":
         return (
           <EarthquakeEvent
             setIncidentData={setIncidentData}
@@ -102,7 +103,7 @@ export const CreateIncident = () => {
             incidentData={incidentData}
           />
         )
-      case "fire":
+      case "Yangın":
         return (
           <FireEvent
             setIncidentData={setIncidentData}
@@ -111,7 +112,7 @@ export const CreateIncident = () => {
             incidentData={incidentData}
           />
         )
-      case "gas_leak":
+      case "Gaz kaçağı":
         return (
           <GasLeak
             setIncidentData={setIncidentData}
@@ -135,9 +136,9 @@ export const CreateIncident = () => {
           dropdownPosition="bottom"
           defaultValue={"earthquake"}
           data={[
-            { label: "Yangın Bilgisi", value: "fire" },
-            { label: "Gaz Kaçağı Bilgisi", value: "gas_leak" },
-            { label: "Genel Hasar Bilgisi", value: "earthquake" }
+            { label: "Yangın Bilgisi", value: "Yangın" },
+            { label: "Gaz Kaçağı Bilgisi", value: "Gaz kaçağı" },
+            { label: "Genel Hasar Bilgisi", value: "Deprem" }
             // Diğer tipleri buraya ekleyebilirsiniz
           ]}
           placeholder="Olay tipi"
@@ -149,7 +150,7 @@ export const CreateIncident = () => {
         {renderEventComponent()}
       </Card>
 
-      <button onClick={handleSubmit}>Create Marker</button>
+      <button onClick={handleSubmit}>Onayla</button>
     </div>
   )
 }
