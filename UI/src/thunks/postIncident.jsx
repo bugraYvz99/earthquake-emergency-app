@@ -2,9 +2,10 @@ import axios from "axios"
 
 export const postIncident = async (markerId, incidentData) => {
   const token = localStorage.getItem("token")
+  const baseUrl = import.meta.env.VITE_API_URL
   try {
     const response = await axios.post(
-      `http://localhost:3000/api/volunteer/incidents`,
+      `${baseUrl}/api/volunteer/incidents`,
       {
         markerId,
         incidentData

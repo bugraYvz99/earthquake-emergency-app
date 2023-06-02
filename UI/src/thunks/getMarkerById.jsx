@@ -1,9 +1,10 @@
 import axios from "axios"
 export const getMarkerByMarkerId = async (markerId) => {
   const token = localStorage.getItem("token")
+  const baseUrl = import.meta.env.VITE_API_URL
   try {
     const response = await axios.get(
-      `http://localhost:3000/api/volunteer/markers/${markerId}`,
+      `${baseUrl}/api/volunteer/markers/${markerId}`,
       {
         headers: {
           Authorization: `

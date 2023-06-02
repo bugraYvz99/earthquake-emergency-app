@@ -6,9 +6,9 @@ export const rateMarker = createAsyncThunk(
   async ({ markerId, puan }, thunkAPI) => {
     try {
       const token = localStorage.getItem("token") // Yetkilendirme token'ınızı buraya yerleştirin
-
+      const baseUrl = import.meta.env.VITE_API_URL
       const response = await fetch(
-        `http://localhost:3000/api/volunteer/markers/${markerId}/rateMarker`,
+        `${baseUrl}/volunteer/markers/${markerId}/rateMarker`,
         {
           method: "POST",
           headers: {

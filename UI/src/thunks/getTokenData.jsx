@@ -1,10 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 const tkn = localStorage.getItem("token")
+const baseUrl = import.meta.env.VITE_API_URL
 export const getTokenData = createAsyncThunk("user/getTokenData", async () => {
   try {
     const response = await axios.get(
-      "http://localhost:3000/api/volunteer/get-UserData",
+      `${baseUrl}/api/volunteer/get-UserData`,
       {
         headers: {
           Authorization: `

@@ -1,5 +1,5 @@
 import React from "react"
-import { Button, Card, Input } from "@mantine/core"
+import { Button, Card, Input, Select } from "@mantine/core"
 
 const EarthquakeEvent = ({
   handleInputChange2,
@@ -31,6 +31,12 @@ const EarthquakeEvent = ({
           onChange={handleInputChange2}
           placeholder="TC No"
         />
+        <Input
+          name={`details.personInfos.${index}.health`}
+          value={person.health}
+          onChange={handleInputChange2}
+          placeholder="Sağlık Durumu"
+        />
       </div>
     ))
   }
@@ -41,73 +47,116 @@ const EarthquakeEvent = ({
         ...prevState.details,
         personInfos: [
           ...prevState.details.personInfos,
-          { name: "", surname: "", tcNo: "" }
+          { name: "", surname: "", tcNo: "", health: "" }
         ]
       }
     }))
   }
+  const handleSelectChange = (selectedOption, name) => {
+    console.log(selectedOption)
+    setIncidentData((prevData) => ({
+      ...prevData,
+      details: {
+        ...prevData.details,
+        [name]: selectedOption
+      }
+    }))
+  }
+  const options = [
+    { value: "iyi", label: "İyi" },
+    { value: "kötü", label: "Kötü" },
+    { value: "çok kötü", label: "Çok Kötü" }
+  ]
   return (
     <div>
       <Card>
         <h1>Deprem Bilgileri</h1>
+
         <Input.Wrapper label="Binanın durumu">
-          <Input
-            type="text"
+          <Select
             name="details.status"
             value={incidentData.details.status}
-            onChange={handleInputChange}
-          />{" "}
-        </Input.Wrapper>{" "}
-        <Input.Wrapper label="Çatı hasarı">
-          <Input
-            type="text"
+            onChange={(selectedOption) =>
+              handleSelectChange(selectedOption, "status")
+            }
+            data={[
+              { value: "Hasar yok", label: "Hasar yok" },
+              { value: "Az hasarlı", label: "Az hasarlı" },
+              { value: "Orta hasarlı", label: "Orta hasarlı" },
+              { value: "Çok hasarlı", label: "Çok hasarlı" },
+              { value: "Yıkıldı", label: "Yıkıldı" }
+            ]}
+          ></Select>
+        </Input.Wrapper>
+
+        <Input.Wrapper label="Çatı durumu">
+          <Select
             name="details.roof"
             value={incidentData.details.roof}
-            onChange={handleInputChange}
-          />{" "}
-        </Input.Wrapper>{" "}
-        <Input.Wrapper label="Zemin hasarı">
-          <Input
-            type="text"
+            onChange={(selectedOption) =>
+              handleSelectChange(selectedOption, "roof")
+            }
+            data={options}
+          ></Select>
+        </Input.Wrapper>
+
+        <Input.Wrapper label="Zemin durumu">
+          <Select
             name="details.floor"
             value={incidentData.details.floor}
-            onChange={handleInputChange}
-          />{" "}
-        </Input.Wrapper>{" "}
-        <Input.Wrapper label="Merdiven hasarı">
-          <Input
-            type="text"
+            onChange={(selectedOption) =>
+              handleSelectChange(selectedOption, "floor")
+            }
+            data={options}
+          ></Select>
+        </Input.Wrapper>
+
+        <Input.Wrapper label="Merdiven durumu">
+          <Select
             name="details.stairs"
             value={incidentData.details.stairs}
-            onChange={handleInputChange}
-          />{" "}
-        </Input.Wrapper>{" "}
+            onChange={(selectedOption) =>
+              handleSelectChange(selectedOption, "stairs")
+            }
+            data={options}
+          ></Select>
+        </Input.Wrapper>
+
         <Input.Wrapper label="Asansör durumu">
-          <Input
-            type="text"
+          <Select
             name="details.elevator"
             value={incidentData.details.elevator}
-            onChange={handleInputChange}
-          />{" "}
-        </Input.Wrapper>{" "}
-        <Input.Wrapper label="Duvar hasarı">
-          <Input
-            type="text"
+            onChange={(selectedOption) =>
+              handleSelectChange(selectedOption, "elevator")
+            }
+            data={options}
+          ></Select>
+        </Input.Wrapper>
+
+        <Input.Wrapper label="Duvar durumu">
+          <Select
             name="details.wall"
             value={incidentData.details.wall}
-            onChange={handleInputChange}
-          />{" "}
-        </Input.Wrapper>{" "}
-        <Input.Wrapper label="Kolon hasarı">
-          <Input
-            type="text"
+            onChange={(selectedOption) =>
+              handleSelectChange(selectedOption, "wall")
+            }
+            data={options}
+          ></Select>
+        </Input.Wrapper>
+
+        <Input.Wrapper label="Kolon durumu">
+          <Select
             name="details.column"
             value={incidentData.details.column}
-            onChange={handleInputChange}
-          />{" "}
-        </Input.Wrapper>{" "}
+            onChange={(selectedOption) =>
+              handleSelectChange(selectedOption, "column")
+            }
+            data={options}
+          ></Select>
+        </Input.Wrapper>
         {/* Daha fazla input alanını buraya ekleyebilirsiniz */}
       </Card>
+
       <Card>
         <h1>İnsan bilgileri</h1>
         <Input.Wrapper label="İçeride ki insan sayısı">

@@ -12,8 +12,10 @@ const VolunteerLogin = () => {
     e.preventDefault()
     setError("")
     try {
+      const baseUrl = import.meta.env.VITE_API_URL
+
       const response = await axios.post(
-        "http://localhost:3000/api/auth/login-volunteer",
+        `${baseUrl}/api/auth/login-volunteer`,
         {
           phoneNumber,
           firstName,

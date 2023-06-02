@@ -1,14 +1,14 @@
 import axios from "axios"
 import { createAsyncThunk } from "@reduxjs/toolkit"
+      const baseUrl = import.meta.env.VITE_API_URL
 
-const MARKERS_URL = "http://localhost:3000/api/volunteer/markers"
+const MARKERS_URL = `${baseUrl}/api/volunteer/markers`
 
 export const postMarker = createAsyncThunk(
   "map/postMarker",
   async ({ markerData, incidentData }) => {
     try {
       const token = localStorage.getItem("token") // User's token information
-
       const response = await axios.post(
         MARKERS_URL,
         { ...markerData, incidentData },

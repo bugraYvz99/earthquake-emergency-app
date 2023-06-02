@@ -31,6 +31,12 @@ const FireEvent = ({
           onChange={handleInputChange2}
           placeholder="TC No"
         />
+        <Input
+          name={`details.personInfos.${index}.health`}
+          value={person.health}
+          onChange={handleInputChange2}
+          placeholder="Sağlık Durumu"
+        />
       </div>
     ))
   }
@@ -41,7 +47,7 @@ const FireEvent = ({
         ...prevState.details,
         personInfos: [
           ...prevState.details.personInfos,
-          { name: "", surname: "", tcNo: "" }
+          { name: "", surname: "", tcNo: "", health: "" }
         ]
       }
     }))

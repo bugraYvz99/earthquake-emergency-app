@@ -11,8 +11,10 @@ const AdminLogin = () => {
     e.preventDefault()
     setError("")
     try {
+      const baseUrl = import.meta.env.VITE_API_URL
+
       const { data } = await axios.post(
-        "http://localhost:3000/api/auth/login",
+        `${baseUrl}/api/auth/login`,
         {
           phoneNumber,
           password

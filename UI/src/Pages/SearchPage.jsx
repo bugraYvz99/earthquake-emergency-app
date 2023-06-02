@@ -11,6 +11,7 @@ export const SearchPage = () => {
   const [personSearchResults, setPersonSearchResults] = useState([])
   const [markers, setMarkers] = useState([])
   const token = localStorage.getItem("token")
+  const baseUrl = import.meta.env.VITE_API_URL
 
   useEffect(() => {
     // Helper function to fetch marker by markerId
@@ -51,7 +52,7 @@ export const SearchPage = () => {
   const handleBuildingSearch = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/volunteer/incidentTypeSearch",
+        `${baseUrl}/api/volunteer/incidentTypeSearch`,
         {
           params: { query: buildingSearchQuery },
           headers: {
@@ -70,7 +71,7 @@ export const SearchPage = () => {
   const handlePersonSearch = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/volunteer/personSearch",
+        `${baseUrl}/api/volunteer/personSearch`,
         {
           params: { query: personSearchQuery },
           headers: {
@@ -124,6 +125,9 @@ export const SearchPage = () => {
                           <li key={index1}>{"Adı: " + person.name}</li>
                           <li key={index1}>{"Soyadı: " + person.surname}</li>
                           <li key={index1}>{"TC Kimlik No: " + person.tcNo}</li>
+                          <li key={index1}>
+                            {"Sağlık Durumu: " + person.health}
+                          </li>
                         </Card>
                       ))}
                     </ul>
@@ -173,6 +177,7 @@ export const SearchPage = () => {
                       <li key={index1}>{"Adı: " + person.name}</li>
                       <li key={index1}>{"Soyadı: " + person.surname}</li>
                       <li key={index1}>{"TC Kimlik No: " + person.tcNo}</li>
+                      <li key={index1}>{"Sağlık Durumu: " + person.health}</li>
                     </Card>
                   ))}
                 </ul>

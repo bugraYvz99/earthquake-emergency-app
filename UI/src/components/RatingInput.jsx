@@ -9,9 +9,11 @@ const RatingInput = () => {
   const handleRatingChange = (event) => {
     setRating(event.currentTarget.value)
   }
+  const baseUrl = import.meta.env.VITE_API_URL
+
   const token = localStorage.getItem("token")
   const handleRateMarker = () => {
-    const url = `http://localhost:3000/api/admin/markers/${markerId}/rateMarker`
+    const url = `${baseUrl}/api/admin/markers/${markerId}/rateMarker`
     const data = { puan: rating }
 
     axios
