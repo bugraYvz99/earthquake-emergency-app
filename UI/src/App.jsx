@@ -1,5 +1,4 @@
 import "./App.css"
-import Layout from "./layout/Layout"
 import { MantineProvider, Text } from "@mantine/core"
 import Router from "./routers/Router"
 import { Provider } from "react-redux"
@@ -9,7 +8,7 @@ function App() {
   return (
     <div>
       <Provider store={store}>
-        <MantineProvider withGlobalStyles withNormalizeCSS>
+        <MantineProvider theme={{ loader: 'bars' }} withGlobalStyles withNormalizeCSS>
           <Router />
         </MantineProvider>
       </Provider>

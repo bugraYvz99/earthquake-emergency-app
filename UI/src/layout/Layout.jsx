@@ -2,6 +2,7 @@ import React from "react"
 import { Header } from "../components/Header"
 import NavbarComponent from "../components/NavbarComponent"
 
+
 const Layout = ({ children, RightPanel }) => {
   return (
     <div className="grid grid-cols-1 grid-rows-12 h-screen">

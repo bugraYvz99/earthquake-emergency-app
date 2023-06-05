@@ -127,7 +127,7 @@ const NavbarComponent = () => {
         to={item.link}
         key={item.label}
         onClick={(event) => {
-          setActive(item.label)
+          setActive(item.label),setIsOpen(!isOpen)
         }}
       >
         <item.icon className={classes.linkIcon} stroke={1.5} />

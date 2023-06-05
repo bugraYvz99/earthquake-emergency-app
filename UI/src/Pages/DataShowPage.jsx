@@ -1,27 +1,32 @@
-import { useSelector, useDispatch } from "react-redux"
-import { selectMarker } from "../Store/mapSlice"
-import { Table } from "@mantine/core"
-import { fetchMarkers } from "../thunks/getmarkers"
-import { useEffect, useState } from "react"
+import { useSelector, useDispatch } from "react-redux";
+import { selectMarker } from "../Store/mapSlice";
+import { Table, Loader } from "@mantine/core";
+import { fetchMarkers } from "../thunks/getmarkers";
+import { useEffect, useState } from "react";
 
 const DataShowPage = () => {
-  const [dbMarkers, setDbMarkers] = useState([])
-  const dispatch = useDispatch()
+  const [dbMarkers, setDbMarkers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // State to track loading status
+  const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchMarkers())
       .unwrap()
       .then((markers) => {
-        setDbMarkers(markers)
+        setDbMarkers(markers);
+        setIsLoading(false); // Set loading state to false after markers are fetched
       })
       .catch((error) => {
-        console.log(error)
-      })
-  }, [dispatch])
+        console.log(error);
+        setIsLoading(false); // Set loading state to false in case of error
+      });
+  }, [dispatch]);
+
   const handleMarkerClick = (marker) => {
-    dispatch(selectMarker(marker))
+    dispatch(selectMarker(marker));
     // Burada seçilen markerın yol tarifi gösterme işlemlerini yapabilirsiniz
-  }
-  console.log(dbMarkers)
+  };
+
   const rows = dbMarkers.map((marker, index) => (
     <tr className="" key={index} onClick={() => handleMarkerClick(marker)}>
       <td>{marker.address}</td>
@@ -33,21 +38,34 @@ const DataShowPage = () => {
           : 0}
       </td>
     </tr>
-  ))
+  ));
 
   return (
     <div>
-      <Table>
-        <thead>
-          <tr className="">
-            <td className="">Adres</td>
-            <td className="">Puan</td>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </Table>
+      {isLoading ? (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100vh',
+          }}
+        >
+          <Loader />
+        </div>
+      ) : (
+        <Table>
+          <thead>
+            <tr className="">
+              <td className="">Adres</td>
+              <td className="">Puan</td>
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </Table>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default DataShowPage
+export default DataShowPage;
