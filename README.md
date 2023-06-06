@@ -8,7 +8,7 @@ Bu proje, deprem sonrasında alandaki binaların durumunun ve uğradıkları zar
 
 - Bina Durumu Gösterimi:
 
-Kullanıcılar, binaların zarar durumunu fotoğraf ve videolarla birlikte harita üzerinde görebilirler.
+Kullanıcılar, binaların zarar durumunu harita üzerinde görebilirler.
 Yıkımın şekli, yangın durumu, gaz ve su sızıntısı, tüp gaz olup olmaması, çatı, kat, merdiven, asansör, duvar, kolon, tablaların durumu gibi bilgileri girebilirler.
 - Kurtarma ve Sağlık Durumu Bilgileri:
 
