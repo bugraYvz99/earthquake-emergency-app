@@ -16,13 +16,13 @@ app.use(cors())
 app.use(express.json())
 app.use(validate)
 
-app.use("/", express.static(path.join(__dirname, "public", "dist")))
+app.use("/", express.static(path.join(__dirname, "public")))
 
 app.use("/api", commonRoutes)
 app.use("/api/admin", auth, isAdmin, adminRouter)
 app.use("/api/volunteer", auth, volunteerRouter)
 app.get("/*", (_req, res) => {
-  res.sendFile(path.join(__dirname, "public", "dist", "index.html"))
+  res.sendFile(path.join(__dirname, "public", "index.html"))
 })
 
 app.listen(config.PORT, () => {
