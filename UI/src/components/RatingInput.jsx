@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import axios from "axios"
 import { useParams } from "react-router-dom"
 import { Button, Card } from "@mantine/core"
+import config from "../config"
 
 const RatingInput = () => {
   const [rating, setRating] = useState(0)
@@ -9,7 +10,7 @@ const RatingInput = () => {
   const handleRatingChange = (event) => {
     setRating(event.currentTarget.value)
   }
-  const baseUrl = import.meta.env.VITE_API_URL
+  const baseUrl = config.baseUrl
 
   const token = localStorage.getItem("token")
   const handleRateMarker = () => {

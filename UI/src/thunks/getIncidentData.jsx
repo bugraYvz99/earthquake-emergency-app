@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
-const baseUrl = import.meta.env.VITE_API_URL
+import config from "../config"
+const baseUrl = config.baseUrl
 const token = localStorage.getItem("token")
 export const getIncidentDataByMarkerId = createAsyncThunk(
   "incidents/getIncidentDataByMarkerId",

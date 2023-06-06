@@ -3,6 +3,7 @@ import axios from "axios"
 import { Button, Card, Input, Select } from "@mantine/core"
 import { getMarkerByMarkerId } from "../thunks/getMarkerById"
 import { Link } from "react-router-dom"
+import config from "../config"
 
 export const SearchPage = () => {
   const [buildingSearchQuery, setBuildingSearchQuery] = useState("")
@@ -11,7 +12,7 @@ export const SearchPage = () => {
   const [personSearchResults, setPersonSearchResults] = useState([])
   const [markers, setMarkers] = useState([])
   const token = localStorage.getItem("token")
-  const baseUrl = import.meta.env.VITE_API_URL
+  const baseUrl = config.baseUrl
 
   useEffect(() => {
     // Helper function to fetch marker by markerId

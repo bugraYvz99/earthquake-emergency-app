@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useState } from "react"
 import { Button, Input, Card } from "@mantine/core"
+import config from "../config"
 
 const VolunteerLogin = () => {
   const [phoneNumber, setPhoneNumber] = useState("")
@@ -12,16 +13,13 @@ const VolunteerLogin = () => {
     e.preventDefault()
     setError("")
     try {
-      const baseUrl = import.meta.env.VITE_API_URL
+      const baseUrl = config.baseUrl
 
-      const response = await axios.post(
-        `${baseUrl}/api/auth/login-volunteer`,
-        {
-          phoneNumber,
-          firstName,
-          lastName
-        }
-      )
+      const response = await axios.post(`${baseUrl}/api/auth/login-volunteer`, {
+        phoneNumber,
+        firstName,
+        lastName
+      })
       localStorage.setItem("token", response.data.token)
       window.location = "/"
     } catch (err) {

@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
+import config from "../config"
 
 // Marker'ı puanlama işlemi için Redux Thunk
 export const rateMarker = createAsyncThunk(
@@ -6,7 +7,7 @@ export const rateMarker = createAsyncThunk(
   async ({ markerId, puan }, thunkAPI) => {
     try {
       const token = localStorage.getItem("token") // Yetkilendirme token'ınızı buraya yerleştirin
-      const baseUrl = import.meta.env.VITE_API_URL
+      const baseUrl = config.baseUrl
       const response = await fetch(
         `${baseUrl}/volunteer/markers/${markerId}/rateMarker`,
         {

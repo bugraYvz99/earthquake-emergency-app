@@ -1,6 +1,7 @@
 import axios from "axios"
 import { createAsyncThunk } from "@reduxjs/toolkit"
-      const baseUrl = import.meta.env.VITE_API_URL
+import config from "../config"
+const baseUrl = config.baseUrl
 
 const MARKERS_URL = `${baseUrl}/api/volunteer/markers`
 

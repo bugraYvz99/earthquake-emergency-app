@@ -10,18 +10,20 @@ const validate = require("./authmidlleware/validatorMiddleware")
 const commonRoutes = require("./routes/commonRoutes")
 const adminRouter = require("./routes/adminRoutes")
 const volunteerRouter = require("./routes/volunteerRoutes")
-
-app.get("/", (req, res) => {
-  res.send("Hello World!")
-})
+const path = require("path")
 
 app.use(cors())
 app.use(express.json())
 app.use(validate)
 
+app.use("/", express.static(path.join(__dirname, "public", "dist")))
+
 app.use("/api", commonRoutes)
 app.use("/api/admin", auth, isAdmin, adminRouter)
 app.use("/api/volunteer", auth, volunteerRouter)
+app.get("/*", (_req, res) => {
+  res.sendFile(path.join(__dirname, "public", "dist", "index.html"))
+})
 
 app.listen(config.PORT, () => {
   console.log(`Server started on port ${config.PORT}`)
