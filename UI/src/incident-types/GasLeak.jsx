@@ -52,6 +52,15 @@ const GasLeak = ({
       }
     }))
   }
+  const handleSelectChange = (selectedOption, name) => {
+    setIncidentData((prevData) => ({
+      ...prevData,
+      details: {
+        ...prevData.details,
+        [name]: selectedOption
+      }
+    }))
+  }
   return (
     <Card>
       <h1>Gaz Kaçağı Bilgileri</h1>

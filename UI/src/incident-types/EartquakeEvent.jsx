@@ -53,7 +53,6 @@ const EarthquakeEvent = ({
     }))
   }
   const handleSelectChange = (selectedOption, name) => {
-    console.log(selectedOption)
     setIncidentData((prevData) => ({
       ...prevData,
       details: {

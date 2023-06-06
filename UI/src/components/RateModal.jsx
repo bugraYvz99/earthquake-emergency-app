@@ -1,21 +1,27 @@
 import React, { useState } from "react"
 import { Modal, Button } from "@mantine/core"
 
-const RateModal = ({ onConfirm, onCancel, userRole, selectedMarker }) => {
-  const [opened, setOpened] = useState(true)
+const RateModal = ({
+  onConfirm,
+  onCancel,
+  userRole,
+  selectedMarker,
+  showModal,
+  setShowModal
+}) => {
   const userNumber = selectedMarker.userNumber
   const userName = selectedMarker.userName
   const handleConfirm = () => {
-    setOpened(false)
+    setShowModal(false)
     onConfirm()
   }
 
   const handleClose = () => {
-    setOpened(false)
+    setShowModal(false)
   }
 
   return (
-    <Modal padding="lg" opened={opened} onClose={handleClose}>
+    <Modal padding="lg" opened={showModal} onClose={handleClose}>
       <p>{"Olayı Bildiren kişinin Telefon numarası:" + userNumber}</p>
       <p>{"Olayı Bildiren kişinin adı:" + userName}</p>
       <h2 className="font-bold">

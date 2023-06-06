@@ -1,5 +1,5 @@
 import React from "react"
-import { Button, Card, Input } from "@mantine/core"
+import { Button, Card, Input, Select } from "@mantine/core"
 
 const FireEvent = ({
   handleInputChange2,
@@ -52,17 +52,33 @@ const FireEvent = ({
       }
     }))
   }
+  const handleSelectChange = (selectedOption, name) => {
+    setIncidentData((prevData) => ({
+      ...prevData,
+      details: {
+        ...prevData.details,
+        [name]: selectedOption
+      }
+    }))
+  }
 
   return (
     <Card>
       <h1>Yangın Bilgileri</h1>
       <Input.Wrapper label="Yangın Durumu">
-        <Input
-          type="text"
+        <Select
           name="details.fireStuation"
           value={incidentData.details.fireStuation}
-          onChange={handleInputChange}
-        />
+          onChange={(selectedOption) =>
+            handleSelectChange(selectedOption, "status")
+          }
+          data={[
+            { value: "Hasar yok", label: "Hasar yok" },
+            { value: "Az hasarlı", label: "Az hasarlı" },
+            { value: "Orta hasarlı", label: "Orta hasarlı" },
+            { value: "Çok hasarlı", label: "Çok hasarlı" }
+          ]}
+        ></Select>
       </Input.Wrapper>
       <Input.Wrapper label="Yanan Kişi Sayısı">
         <Input
