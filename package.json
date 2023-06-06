@@ -1,4 +1,9 @@
 {
+  "name": "earthquake-emergency-app",
+  "scripts": {
+    "build": "./linux-build.sh",
+    "start": "node ./api/index.js"
+  },
   "dependencies": {
     "prettier": "^2.8.8"
   }

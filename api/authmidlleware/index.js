@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken")
-require("dotenv")
+const config = require("./config")
 
 const authenticateToken = (req, res, next) => {
   const token = req.headers.authorization
@@ -10,7 +10,7 @@ const authenticateToken = (req, res, next) => {
       .json({ message: "Token bulunamadı. Yetkilendirme reddedildi." })
   }
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+  jwt.verify(token, config.JWT_SECRET, (err, user) => {
     if (err) {
       return res
         .status(403)
