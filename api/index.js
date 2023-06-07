@@ -24,7 +24,6 @@ app.use("/api/volunteer", auth, volunteerRouter)
 app.get("/*", (_req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"))
 })
-
 app.listen(config.PORT, () => {
   console.log(`Server started on port ${config.PORT}`)
 })

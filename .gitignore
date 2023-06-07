@@ -1,5 +1,6 @@
 node_modules/
 .env
 dist
-api/public/
+api/public
+public
 .vercel
