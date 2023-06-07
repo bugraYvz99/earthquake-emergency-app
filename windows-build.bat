@@ -20,3 +20,5 @@ RMDIR ".\node_modules" /S /Q
 RMDIR ".\public" /S /Q
 CALL npm install
 MOVE "..\UI\dist" ".\public"
+CD ..
+XCOPY /E /I /Y "api" "public"
