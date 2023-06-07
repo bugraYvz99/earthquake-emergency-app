@@ -1,8 +1,8 @@
 {
   "name": "earthquake-emergency-app",
   "scripts": {
-    "build": "bash linux-build.sh",
-    "buildw": "windows-build.bat",
+    "buildw": "bash linux-build.sh",
+    "build": "windows-build.bat",
     "start": "node ./api/index.js"
   },
   "dependencies": {
