@@ -13,7 +13,9 @@ import {
   IconMenu2,
   IconSearch,
   IconHelpCircle,
-  IconHomeSearch
+  IconHomeSearch,
+  IconAlertSmall,
+  IconAlertCircle
 } from "@tabler/icons-react"
 import { useDispatch } from "react-redux"
 import { logout } from "../thunks/logout"
@@ -112,9 +114,19 @@ const NavbarComponent = () => {
       icon: IconHelpCircle
     },
     { link: "/Hasarlar", label: "Hasarlı Binalar", icon: IconHomeSearch },
-    { link: "/search-page", label: "Arama Sayfası", icon: IconSearch }
+    { link: "/search-page", label: "Arama Sayfası", icon: IconSearch },
+    {
+      link: "/todo-page",
+      label: "Depremde Yapılacaklar",
+      icon: IconAlertCircle
+    }
   ]
 
+  function handleMenuToggle() {
+    setIsOpen(!isOpen)
+    setActive("")
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
   function NavbarSimple() {
     const { classes, cx } = useStyles()
     const [active, setActive] = useState("Notifications")
@@ -127,7 +139,9 @@ const NavbarComponent = () => {
         to={item.link}
         key={item.label}
         onClick={(event) => {
-          setActive(item.label),setIsOpen(!isOpen)
+          setActive(item.label),
+            setIsOpen(!isOpen),
+            window.scrollTo({ top: 0, behavior: "smooth" })
         }}
       >
         <item.icon className={classes.linkIcon} stroke={1.5} />
@@ -139,14 +153,22 @@ const NavbarComponent = () => {
       <Navbar h={"100%"} p="sm" className="flex flex-col ">
         <Navbar.Section grow>
           <Group className={classes.header} position="left">
-            <Link className="font-bold text-3xl" to="/">
+            <Link
+              onClick={handleMenuToggle}
+              className="font-bold text-3xl"
+              to="/"
+            >
               Menu
             </Link>
             <button
               className={`transition transform duration-500 ${
                 isOpen ? "rotate-180" : ""
               }`}
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() =>
+                setIsOpen(!isOpen)(
+                  window.scrollTo({ top: 0, behavior: "smooth" })
+                )
+              }
               aria-label="Toggle navigation menu"
             >
               <IconMenu2 />

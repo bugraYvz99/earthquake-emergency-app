@@ -32,11 +32,14 @@ const DataShowPage = () => {
     <tr className="" key={index} onClick={() => handleMarkerClick(marker)}>
       <td>{marker.address}</td>
       <td>
-        {marker.ratings.length > 0
-          ? (
-              marker.ratings.reduce((a, b) => a + b) / marker.ratings.length
-            ).toFixed(2)
-          : 0}
+        <p>
+          {" 5/"}
+          {marker.ratings.length > 0
+            ? (
+                marker.ratings.reduce((a, b) => a + b) / marker.ratings.length
+              ).toFixed(2)
+            : 0}
+        </p>
       </td>
     </tr>
   ))

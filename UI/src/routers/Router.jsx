@@ -14,6 +14,7 @@ import RatingInput from "../components/RatingInput"
 import { CreateIncident } from "../Pages/CreateIncident"
 import { SearchPage } from "../Pages/SearchPage"
 import { EmergencyCalls } from "../Pages/EmergencyCalls"
+import TodoPage from "../Pages/todoPage"
 
 const Router = () => {
   const dispatch = useDispatch()
@@ -105,6 +106,14 @@ const Router = () => {
             element={
               <Layout>
                 <EmergencyCalls />
+              </Layout>
+            }
+          />
+          <Route
+            path="/todo-page"
+            element={
+              <Layout>
+                <TodoPage />
               </Layout>
             }
           />

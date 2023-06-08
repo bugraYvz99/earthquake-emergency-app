@@ -3,9 +3,8 @@ import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchMarkers } from "../thunks/getmarkers"
 import { useNavigate } from "react-router-dom"
-import RatingInput from "./RatingInput"
 import RateModal from "./RateModal"
-import { Loader } from "@mantine/core"
+import { Card, Loader } from "@mantine/core"
 
 const containerStyle = {
   width: "375px",
@@ -20,17 +19,17 @@ const Map = ({ location }) => {
   const [showModal, setShowModal] = useState(false)
   const [selectedMarker, setSelectedMarker] = useState(null)
   const [isLoading, setIsLoading] = useState(true) // State to track loading status
-
+  const [center, setCenter] = useState({
+    lat: location.latitude,
+    lng: location.longitude
+  })
   const [dbMarkers, setDbMarkers] = useState([])
   const { isLoaded: isApiLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyDXUM99i5wpXdDa8fqqW18TtwHKrQYimyE",
     libraries
   })
-  const center = {
-    lat: location.latitude,
-    lng: location.longitude
-  }
+
   const user = useSelector((state) => state.user)
   const userRole = user.tokenData.role
 
@@ -59,6 +58,11 @@ const Map = ({ location }) => {
     setSelectedMarker(marker)
     setShowModal(true)
   }
+  const handleCardClick = (marker) => {
+    setSelectedMarker(marker)
+    setCenter(marker.position)
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
 
   const handleModalConfirm = () => {
     setShowModal(false)
@@ -78,8 +82,8 @@ const Map = ({ location }) => {
   }
 
   return (
-    <div className="flex justify-center" style={{ flexGrow: 1 }}>
-      {!isApiLoaded ? ( // isApiLoaded durumunu ve isLoading durumunu kontrol ediyoruz
+    <div className="flex justify-center items-center flex-col">
+      {!isApiLoaded ? (
         <div
           style={{
             display: "flex",
@@ -123,6 +127,29 @@ const Map = ({ location }) => {
           )}
         </GoogleMap>
       )}
+      {dbMarkers &&
+        dbMarkers.map((marker, index) => (
+          <Card
+            className="mt-5 w-5/6 rounded-sm shadow-xl shadow-neutral-500"
+            bg={"lime"}
+            key={index}
+            onClick={() => handleCardClick(marker)}
+          >
+            <p className="flex justify-center bg-slate-300 font-semibold">
+              İşaretci {index + 1}
+            </p>
+            <p>Adres: {marker.address}</p>
+            <p>
+              İşaret güvenilirliği:{" 5/"}
+              {marker.ratings.length > 0
+                ? (
+                    marker.ratings.reduce((a, b) => a + b) /
+                    marker.ratings.length
+                  ).toFixed(2)
+                : 0}
+            </p>
+          </Card>
+        ))}
     </div>
   )
 }
