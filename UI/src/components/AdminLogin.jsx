@@ -2,6 +2,7 @@ import { useState } from "react"
 import axios from "axios"
 import { Button, Input, Card } from "@mantine/core"
 import config from "../config"
+import React from "react"
 
 const AdminLogin = () => {
   const [phoneNumber, setPhoneNumber] = useState("")

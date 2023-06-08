@@ -1,7 +1,6 @@
 import React from "react"
 import { List, ThemeIcon } from "@mantine/core"
 import { IconPhone } from "@tabler/icons-react"
-
 export const EmergencyCalls = () => {
   const data = {
     emergencyNumbers: {
