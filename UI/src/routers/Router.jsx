@@ -14,7 +14,7 @@ import RatingInput from "../components/RatingInput"
 import { CreateIncident } from "../Pages/CreateIncident"
 import { SearchPage } from "../Pages/SearchPage"
 import { EmergencyCalls } from "../Pages/EmergencyCalls"
-import TodoPage from "../Pages/todoPage"
+import TodoPage from "../Pages/TodoPage"
 
 const Router = () => {
   const dispatch = useDispatch()
