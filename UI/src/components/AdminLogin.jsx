@@ -32,15 +32,17 @@ const AdminLogin = () => {
       padding="lg"
       radius="md"
       withBorder
-      className="grid col-span-4 mx-auto "
+      className="grid col-span-4 mx-auto mt-32 shadow-2xl w-full"
     >
       <form
-        className="flex flex-col items-center gap-5"
+        className="flex flex-col items-center gap-5  justify-center"
         onSubmit={handleSubmit}
       >
-        <h2>Log In</h2>
+        <h2 className=" font-serif text-lg font-semibold">
+          Yetkili olarak giriş yap
+        </h2>
         {error && <div className="alert alert-danger">{error}</div>}
-        <Input.Wrapper label="Phone Number" required>
+        <Input.Wrapper label="Telefon numarası" required>
           <Input
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
@@ -50,7 +52,7 @@ const AdminLogin = () => {
             required
           />
         </Input.Wrapper>
-        <Input.Wrapper label="Password" required>
+        <Input.Wrapper label="Şifre" required>
           <Input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -61,7 +63,7 @@ const AdminLogin = () => {
           />
         </Input.Wrapper>
         <Button type="submit" variant="outline" color="blue">
-          Log In
+          Giriş yap
         </Button>
       </form>
     </Card>

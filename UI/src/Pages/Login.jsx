@@ -2,6 +2,7 @@ import { useState } from "react"
 import AdminLogin from "../components/AdminLogin"
 import VolunteerLogin from "../components/VolunteerLogin"
 import React from "react"
+import { Button } from "@mantine/core"
 
 export default function LoginPage() {
   const [showVolunteerLogin, setShowVolunteerLogin] = useState(false)
@@ -25,22 +26,28 @@ export default function LoginPage() {
         )}
       </div>
       <div className="row mt-4">
-        <div className="col-md-6">
+        <div className="flex items-center justify-center">
           {showVolunteerLogin && (
-            <button
+            <Button
+              type="submit"
+              variant="outline"
+              color="blue"
               className="btn btn-secondary"
               onClick={handleToggleVolunteerLogin}
             >
               Yetkili Girişi
-            </button>
+            </Button>
           )}
           {!showVolunteerLogin && (
-            <button
+            <Button
+              type="submit"
+              variant="outline"
+              color="blue"
               className="btn btn-secondary"
               onClick={handleToggleVolunteerLogin}
             >
               Gönüllü Girişi
-            </button>
+            </Button>
           )}
         </div>
       </div>

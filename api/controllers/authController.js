@@ -9,7 +9,6 @@ exports.login = async (req, res) => {
     res.json({ token })
   } catch (error) {
     console.error(error)
-    res.status(500).json({ success: false, message: "Sunucu hatası" })
   }
 }
 
@@ -26,6 +25,5 @@ exports.loginAsVolunteer = async (req, res) => {
     res.status(200).json({ success: true, token })
   } catch (err) {
     console.error(err)
-    res.status(500).json({ success: false, message: "Can not Login" })
   }
 }
