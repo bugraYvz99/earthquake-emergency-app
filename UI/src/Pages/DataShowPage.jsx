@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux"
 import { selectMarker } from "../Store/mapSlice"
-import { Table, Loader } from "@mantine/core"
+import { Table, Loader, Card } from "@mantine/core"
 import { fetchMarkers } from "../thunks/getmarkers"
 import { useEffect, useState } from "react"
 import React from "react"
@@ -29,19 +29,31 @@ const DataShowPage = () => {
   }
 
   const rows = dbMarkers.map((marker, index) => (
-    <tr className="" key={index} onClick={() => handleMarkerClick(marker)}>
-      <td>{marker.address}</td>
-      <td>
-        <p>
-          {" 5/"}
-          {marker.ratings.length > 0
-            ? (
-                marker.ratings.reduce((a, b) => a + b) / marker.ratings.length
-              ).toFixed(2)
-            : 0}
-        </p>
-      </td>
-    </tr>
+    <Card
+      mt={10}
+      bg={"cyan"}
+      shadow="sm"
+      padding="lg"
+      radius="md"
+      withBorder
+      w={"95%"}
+    >
+      <td className=" border-b-2">Adres</td>
+      <td className=" border-b-2 ">Puan</td>
+      <tr className="" key={index} onClick={() => handleMarkerClick(marker)}>
+        <td>{marker.address}</td>
+        <td>
+          <p>
+            {" 5/"}
+            {marker.ratings.length > 0
+              ? (
+                  marker.ratings.reduce((a, b) => a + b) / marker.ratings.length
+                ).toFixed(2)
+              : 0}
+          </p>
+        </td>
+      </tr>
+    </Card>
   ))
 
   return (
@@ -58,14 +70,19 @@ const DataShowPage = () => {
           <Loader />
         </div>
       ) : (
-        <Table>
-          <thead>
-            <tr className="">
-              <td className="">Adres</td>
-              <td className="">Puan</td>
-            </tr>
-          </thead>
-          <tbody>{rows}</tbody>
+        <Table w={"100%"}>
+          <Card
+            mt={10}
+            shadow="sm"
+            padding="lg"
+            radius="md"
+            withBorder
+            w={"100%"}
+          >
+            <thead className=""></thead>
+
+            <tbody className="mt-4">{rows}</tbody>
+          </Card>
         </Table>
       )}
     </div>

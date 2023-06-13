@@ -41,15 +41,14 @@ const VolunteerLogin = () => {
         className="flex flex-col items-center gap-5"
         onSubmit={handleSubmit}
       >
-        <h2 className=" font-serif text-lg font-semibold">
-          Gönüllü olarak giriş yap
-        </h2>
+        <h2 className="  text-lg font-semibold">Gönüllü olarak giriş yap</h2>
         {error && <div className="alert alert-danger">{error}</div>}
         <Input.Wrapper label="Telefon numarası" required>
           <Input
             type="tel"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
+            required
           />
         </Input.Wrapper>
         <Input.Wrapper label="Ad" required>

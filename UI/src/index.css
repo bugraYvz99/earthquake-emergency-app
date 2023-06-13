@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+p,
+h1,
+h2,
+h3,
+a,
+text,
+textarea {
+  font-family: "Open Sans", sans-serif;
+}

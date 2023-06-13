@@ -81,7 +81,7 @@ export const CreateIncident = () => {
     try {
       console.log(incidentData)
       await postIncident(markerId, incidentData)
-      console.log("başarılı")
+
       // Handle success, such as showing a success message or redirecting to a different page
     } catch (error) {
       // Handle error, such as displaying an error message

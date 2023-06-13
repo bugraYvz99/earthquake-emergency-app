@@ -164,11 +164,10 @@ const NavbarComponent = () => {
               className={`transition transform duration-500 ${
                 isOpen ? "rotate-180" : ""
               }`}
-              onClick={() =>
-                setIsOpen(!isOpen)(
-                  window.scrollTo({ top: 0, behavior: "smooth" })
-                )
-              }
+              onClick={() => {
+                setIsOpen(!isOpen)
+                window.scrollTo({ top: 0, behavior: "smooth" })
+              }}
               aria-label="Toggle navigation menu"
             >
               <IconMenu2 />
