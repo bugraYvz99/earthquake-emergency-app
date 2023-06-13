@@ -24,7 +24,7 @@ function validateForADMIN_LOGIN(req, res) {
       return req.body.phoneNumber
     } else {
       // Invalid phone number format
-      return res.status(400).json({ error: "Invalid phone number format" })
+      throw new Error("Geçerli bir numara giriniz")
     }
   }
 }
@@ -36,7 +36,7 @@ function validateForVOLUNTEER_LOGIN(req, res) {
     return req.body.phoneNumber
   } else {
     // Invalid phone number format
-    return res.status(400).json({ error: "Invalid phone number format" })
+    throw new Error("Geçerli bir numara giriniz")
   }
 }
 

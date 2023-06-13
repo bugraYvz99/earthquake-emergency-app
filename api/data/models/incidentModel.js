@@ -19,7 +19,9 @@ const incidentSchema = new mongoose.Schema({
       url: String,
       type: String
     }
-  ]
+  ],
+  created_at: { type: Date, default: Date.now },
+  updated_at: { type: Date, default: Date.now }
 })
 
 // Create the incidents model

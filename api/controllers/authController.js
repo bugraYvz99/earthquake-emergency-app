@@ -6,12 +6,12 @@ exports.login = async (req, res) => {
 
     const token = await authService.loginUser(phoneNumber, password)
 
-    res.json({ token })
+    res.status(200).json({ success: true, token })
   } catch (error) {
     console.error(error)
+    res.status(400).json({ message: error.message })
   }
 }
-
 exports.loginAsVolunteer = async (req, res) => {
   try {
     const { firstName, lastName, phoneNumber } = req.body
@@ -24,6 +24,6 @@ exports.loginAsVolunteer = async (req, res) => {
 
     res.status(200).json({ success: true, token })
   } catch (err) {
-    console.error(err)
+    res.status(400).json({ message: error.message })
   }
 }

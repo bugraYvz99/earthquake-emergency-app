@@ -23,6 +23,7 @@ const AdminLogin = () => {
       window.location = "/"
     } catch (error) {
       setError(error.response.data.message)
+      console.log(error.response.data.message)
     }
   }
   return (
