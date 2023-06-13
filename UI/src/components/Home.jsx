@@ -152,7 +152,7 @@ export const Home = () => {
       <div>
         {" "}
         <h1 className="  text-center font-extrabold">
-          Deprem yardım uygulamasına hoşgeldiniz
+          Deprem yardım uygulaması
         </h1>
         <Carousel
           slideSize="50%"

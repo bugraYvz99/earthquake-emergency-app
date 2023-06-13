@@ -3,6 +3,7 @@ import React from "react"
 
 const ShowFire = ({ incident }) => {
   // Extract the "created_at" time value
+  const createdAt = new Date(incident._doc.created_at)
 
   return (
     <div>
@@ -11,12 +12,13 @@ const ShowFire = ({ incident }) => {
         {incident._doc.details.status &&
           "Yangın durumu: " + incident._doc.details.status}
       </p>
-      <Divider label="İnsan Bilgileri" w="100%" c={"blue"} size={"lg"} />
       {incident._doc.details.persons && (
-        <p className="mb-2">
-          {incident._doc.details.persons.burned &&
-            "Yaralanan Kişi Sayısı:" + incident._doc.details.persons.burned}
-        </p>
+        <div>
+          <Divider label="İnsan Bilgileri" w="100%" c={"blue"} size={"lg"} />
+          <p className="mb-2">
+            {"Yaralanan Kişi Sayısı: " + incident._doc.details.persons.burned}
+          </p>
+        </div>
       )}
     </div>
   )

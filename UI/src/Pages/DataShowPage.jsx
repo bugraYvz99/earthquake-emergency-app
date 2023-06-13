@@ -37,10 +37,11 @@ const DataShowPage = () => {
       radius="md"
       withBorder
       w={"95%"}
+      key={index}
     >
       <td className=" border-b-2">Adres</td>
       <td className=" border-b-2 ">Puan</td>
-      <tr className="" key={index} onClick={() => handleMarkerClick(marker)}>
+      <tr className="" onClick={() => handleMarkerClick(marker)}>
         <td>{marker.address}</td>
         <td>
           <p>

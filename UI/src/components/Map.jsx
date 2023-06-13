@@ -130,8 +130,13 @@ const Map = ({ location }) => {
       {dbMarkers &&
         dbMarkers.map((marker, index) => (
           <Card
-            className="mt-5 w-5/6 rounded-sm shadow-xl shadow-neutral-500"
-            bg={"lime"}
+            mt={10}
+            bg={"cyan"}
+            shadow="sm"
+            padding="lg"
+            radius="md"
+            withBorder
+            w={"95%"}
             key={index}
             onClick={() => handleCardClick(marker)}
           >
