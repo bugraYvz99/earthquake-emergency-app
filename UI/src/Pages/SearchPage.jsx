@@ -114,12 +114,12 @@ export const SearchPage = () => {
         <ul>
           {buildingSearchResults.length > 0 ? (
             buildingSearchResults.map((result, index) => (
-              <Card key={index} className="mt-2">
+              <Card key={index} className="mt-2 my-5 mx-5 ">
                 <li>{"Olay Tipi: " + "" + result.type}</li>
                 {result.details.personInfos && (
                   <>
                     <h2>Yaralananlar:</h2>
-                    <ul>
+                    <ul className="my-5 mx-5">
                       {result.details.personInfos.map((person, index1) => (
                         <Card key={index1}>
                           <p className="font-bold">{"Kişi: " + (index1 + 1)}</p>
