@@ -173,11 +173,7 @@ const CreateMarker = () => {
           }
         />
         {renderEventComponent()}
-        <Button
-          className="relative top-10"
-          variant="outline"
-          onClick={handleSubmit}
-        >
+        <Button className="" variant="outline" onClick={handleSubmit}>
           Onayla ve haritaya işaretçi oluştur
         </Button>
       </Card>

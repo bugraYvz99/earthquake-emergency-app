@@ -63,10 +63,11 @@ const FireEvent = ({
   }
 
   return (
-    <Card>
+    <Card h={"100%"}>
       <h1>Yangın Bilgileri</h1>
       <Input.Wrapper label="Yangın Durumu">
         <Select
+          className=" overflow-auto"
           name="details.fireStuation"
           value={incidentData.details.fireStuation}
           onChange={(selectedOption) =>
@@ -80,7 +81,7 @@ const FireEvent = ({
           ]}
         ></Select>
       </Input.Wrapper>
-      <Input.Wrapper label="Yanan Kişi Sayısı">
+      <Input.Wrapper label="Yaralanan Kişi Sayısı">
         <Input
           type="text"
           name="persons.burned"

@@ -77,36 +77,49 @@ const MarkerDetails = () => {
     <div>
       {marker && <MarkerDetailMap markerData={marker} />}
       {Array.isArray(incident) && incident.length > 0 ? (
-        incident.map((item) => (
-          <div
-            key={item._doc._id}
-            className={`grid grid-flow-row grid-cols-2 mx-2 mt-4 ${
-              item.isOwner
-                ? ownerBackgroundClass
-                : "bg-white rounded shadow p-4"
-            }`}
-          >
-            {renderIncidentComponent(item._doc.type, item)}
-            <p>{marker.address}</p>
-            {item.isOwner && (
-              <div>
-                <button className="bg-blue-500 text-white px-4 py-2 rounded">
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDeleteIncident(item._doc._id)}
-                  className="bg-blue-500 text-white px-4 py-2 rounded ml-3"
-                >
-                  Delete
-                </button>
-              </div>
-            )}
-          </div>
-        ))
+        incident.map((item) => {
+          const createdAt = new Date(item._doc.created_at)
+          const formattedTime = `${createdAt.getHours()}:${createdAt.getMinutes()}`
+          const formattedDate = createdAt.toLocaleDateString("en-US")
+          return (
+            <div
+              key={item._doc._id}
+              className={`grid grid-flow-row grid-cols-2 mx-2 mt-4 ${
+                item.isOwner
+                  ? ownerBackgroundClass
+                  : "bg-white rounded shadow p-4"
+              }`}
+            >
+              {renderIncidentComponent(item._doc.type, item)}
+
+              <p className="">
+                Oluşturulma Saati: {formattedTime} Oluşturulma Tarihi:{" "}
+                {formattedDate}
+              </p>
+              {item.isOwner && (
+                <div>
+                  <button className="bg-blue-500 text-white px-4 py-2 rounded">
+                    Değiştir
+                  </button>
+                  <button
+                    onClick={() => handleDeleteIncident(item._doc._id)}
+                    className="bg-blue-500 text-white px-4 py-2 rounded ml-3"
+                  >
+                    Sil
+                  </button>
+                </div>
+              )}
+            </div>
+          )
+        })
       ) : (
         <p>No incident data available.</p>
       )}
-      <Button variant="filled" onClick={handleCreateIncident}>
+      <Button
+        variant="filled"
+        className="bg-blue-500 text-white px-4 py-2 rounded mt-5"
+        onClick={handleCreateIncident}
+      >
         Bilgi ekle
       </Button>
     </div>
