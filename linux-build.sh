@@ -12,7 +12,7 @@ cd ../api
 rm -rf "./node_modules"
 rm -rf "./public"
 npm install
-mv "../UI/dist" "./public"
+mv ../UI/dist ./public
 echo "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<GOING ROOT"
 cd ..
 cp -r api public
