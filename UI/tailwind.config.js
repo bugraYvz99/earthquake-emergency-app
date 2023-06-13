@@ -15,6 +15,8 @@ export default {
         12: "repeat(12, minmax(0, 1fr))"
       },
       gridRow: {
+        "span-12": "span 12 / span 12",
+        "span-11": "span 11 / span 11",
         "span-10": "span 10 / span 10",
         "span-9": "span 9 / span 9"
       },

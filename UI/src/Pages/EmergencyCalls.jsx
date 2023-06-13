@@ -1,6 +1,7 @@
 import React from "react"
-import { List, ThemeIcon } from "@mantine/core"
+import { List, Paper, ThemeIcon } from "@mantine/core"
 import { IconPhone } from "@tabler/icons-react"
+
 export const EmergencyCalls = () => {
   const data = {
     emergencyNumbers: {
@@ -21,28 +22,30 @@ export const EmergencyCalls = () => {
   }
 
   return (
-    <div>
-      <h1>Acil Durum Hatları</h1>
-      {data.emergencyNumbers ? (
-        <List
-          spacing="xs"
-          size="sm"
-          center
-          icon={
-            <ThemeIcon color="teal" size={24} radius="xl">
-              <IconPhone size="1rem" />
-            </ThemeIcon>
-          }
-        >
-          {Object.entries(data.emergencyNumbers).map(([name, number]) => (
-            <List.Item key={name}>
-              {name}: {number}
-            </List.Item>
-          ))}
-        </List>
-      ) : (
-        <p>Veriler yükleniyor...</p>
-      )}
+    <div className="flex justify-center">
+      <Paper shadow="lg" radius={10} className="mt-5 py-5 px-5">
+        <h1>Acil Durum Hatları</h1>
+        {data.emergencyNumbers ? (
+          <List
+            spacing="xs"
+            size="sm"
+            center
+            icon={
+              <ThemeIcon color="teal" size={24} radius="xl">
+                <IconPhone size="1rem" />
+              </ThemeIcon>
+            }
+          >
+            {Object.entries(data.emergencyNumbers).map(([name, number]) => (
+              <List.Item key={name}>
+                {name}: {number}
+              </List.Item>
+            ))}
+          </List>
+        ) : (
+          <p>Veriler yükleniyor...</p>
+        )}
+      </Paper>
     </div>
   )
 }

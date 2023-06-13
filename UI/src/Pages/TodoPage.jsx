@@ -35,7 +35,7 @@ const TodoPage = () => {
   return (
     <div>
       <div className="max-w-xl mx-auto p-6">
-        <Paper shadow="md" padding="lg">
+        <Paper shadow="md" padding="xl" className="px-5 py-4">
           <Title order={1} style={{ marginBottom: "1.5rem" }}>
             Deprem Esnasında Yapılması Gerekenler
           </Title>
@@ -50,7 +50,7 @@ const TodoPage = () => {
         </Paper>
       </div>
       <div id="scroll-to-section" className="max-w-xl mx-auto p-6">
-        <Paper shadow="md" padding="lg">
+        <Paper shadow="md" padding="lg" className="px-5 py-4">
           <Title order={1} style={{ marginBottom: "1.5rem" }}>
             Deprem Çantasına Konması Gerekenler
           </Title>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+// Google map Komponentleri.
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchMarkers } from "../thunks/getmarkers"
@@ -24,6 +25,8 @@ const Map = ({ location }) => {
     lng: location.longitude
   })
   const [dbMarkers, setDbMarkers] = useState([])
+
+  // Google map api'si ile haritanın yüklenmesini gerçekleştiren Script.
   const { isLoaded: isApiLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyDXUM99i5wpXdDa8fqqW18TtwHKrQYimyE",
@@ -38,6 +41,7 @@ const Map = ({ location }) => {
       .unwrap()
       .then((markers) => {
         setDbMarkers(markers)
+        setIsLoading(false)
         // Set loading state to false after markers are fetched
       })
       .catch((error) => {
@@ -96,6 +100,7 @@ const Map = ({ location }) => {
           <Loader />
         </div>
       ) : (
+        //Google mapin Render olmasını sağlayan komponent ->
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
@@ -127,34 +132,51 @@ const Map = ({ location }) => {
           )}
         </GoogleMap>
       )}
-      {dbMarkers &&
-        dbMarkers.map((marker, index) => (
-          <Card
-            mt={10}
-            bg={"cyan"}
-            shadow="sm"
-            padding="lg"
-            radius="md"
-            withBorder
-            w={"95%"}
-            key={index}
-            onClick={() => handleCardClick(marker)}
+      {dbMarkers ? (
+        isLoading ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100vh"
+            }}
           >
-            <p className="flex justify-center bg-slate-300 font-semibold">
-              İşaretci {index + 1}
-            </p>
-            <p>Adres: {marker.address}</p>
-            <p>
-              İşaret güvenilirliği:{" 5/"}
-              {marker.ratings.length > 0
-                ? (
-                    marker.ratings.reduce((a, b) => a + b) /
-                    marker.ratings.length
-                  ).toFixed(2)
-                : 0}
-            </p>
-          </Card>
-        ))}
+            <Loader />
+          </div>
+        ) : (
+          <div className="flex flex-col justify-center items-center">
+            {dbMarkers.map((marker, index) => (
+              <Card
+                className="hover:bg-gray-100 hover:h-40"
+                mt={10}
+                bg={"cyan"}
+                shadow="sm"
+                padding="lg"
+                radius="md"
+                withBorder
+                w={"95%"}
+                key={index}
+                onClick={() => handleCardClick(marker)}
+              >
+                <p className="flex justify-center bg-slate-300 font-semibold">
+                  İşaretci {index + 1}
+                </p>
+                <p>Adres: {marker.address}</p>
+                <p>
+                  İşaret güvenilirliği:{" "}
+                  {marker.ratings.length > 0
+                    ? (
+                        marker.ratings.reduce((a, b) => a + b) /
+                        marker.ratings.length
+                      ).toFixed(2)
+                    : 0}
+                </p>
+              </Card>
+            ))}
+          </div>
+        )
+      ) : null}
     </div>
   )
 }

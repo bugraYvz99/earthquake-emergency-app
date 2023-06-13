@@ -4,11 +4,13 @@ import { Table, Loader, Card } from "@mantine/core"
 import { fetchMarkers } from "../thunks/getmarkers"
 import { useEffect, useState } from "react"
 import React from "react"
+import { useMediaQuery } from "@mantine/hooks"
 
 const DataShowPage = () => {
   const [dbMarkers, setDbMarkers] = useState([])
   const [isLoading, setIsLoading] = useState(true) // State to track loading status
   const dispatch = useDispatch()
+  const isDesktop = useMediaQuery("(min-width: 750px)")
 
   useEffect(() => {
     dispatch(fetchMarkers())
@@ -30,13 +32,13 @@ const DataShowPage = () => {
 
   const rows = dbMarkers.map((marker, index) => (
     <Card
+      className=""
       mt={10}
       bg={"cyan"}
       shadow="sm"
-      padding="lg"
       radius="md"
       withBorder
-      w={"95%"}
+      w={isDesktop ? "75%" : "95%"}
       key={index}
     >
       <td className=" border-b-2">Adres</td>
@@ -58,7 +60,7 @@ const DataShowPage = () => {
   ))
 
   return (
-    <div>
+    <div className="flex justify-center items-center content-center place-items-center">
       {isLoading ? (
         <div
           style={{
@@ -71,18 +73,23 @@ const DataShowPage = () => {
           <Loader />
         </div>
       ) : (
-        <Table w={"100%"}>
+        <Table
+          className="flex justify-center justify-items-center items-center"
+          w={"100%"}
+        >
           <Card
+            className="flex justify-center justify-items-center items-center"
             mt={10}
             shadow="sm"
-            padding="lg"
             radius="md"
             withBorder
             w={"100%"}
           >
             <thead className=""></thead>
 
-            <tbody className="mt-4">{rows}</tbody>
+            <tbody className="flex flex-col justify-center justify-items-center items-center mt-4">
+              {rows}
+            </tbody>
           </Card>
         </Table>
       )}
