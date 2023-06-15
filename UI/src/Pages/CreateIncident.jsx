@@ -1,12 +1,15 @@
 import React, { useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { postIncident } from "../thunks/postIncident"
-import { Card, Input, Select } from "@mantine/core"
+import { Button, Card, Input, Notification, Select } from "@mantine/core"
 import EarthquakeEvent from "../incident-types/EartquakeEvent"
 import FireEvent from "../incident-types/FireEvent"
 import GasLeak from "../incident-types/GasLeak"
 
 export const CreateIncident = () => {
+  const [showNotification, setShowNotification] = useState(false)
+  const [notificationText, setNotificationText] = useState("")
+  const navigate = useNavigate()
   const { markerId } = useParams()
   console.log(markerId)
   const [incidentData, setIncidentData] = useState({
@@ -79,17 +82,30 @@ export const CreateIncident = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      console.log(incidentData)
-      await postIncident(markerId, incidentData)
-
-      // Handle success, such as showing a success message or redirecting to a different page
+      console.log(incidentData.type)
+      if (incidentData.type.trim() === "") {
+        throw new Error("Lütfen bir olay türü seçiniz.")
+      }
+      const status = await postIncident(markerId, incidentData)
+      console.log("Status:", status)
+      if (status === 201) {
+        navigate("/page1", {
+          state: {
+            showNotification: true,
+            notificationText: "Olay başarılı şekilde oluşturuldu"
+          }
+        })
+      }
     } catch (error) {
       // Handle error, such as displaying an error message
       console.error(error)
+      // Show a notification with the error message
+      setShowNotification(true)
+      setNotificationText(error.message)
     }
     // Reset the form or perform any other necessary actions
-    window.location.href = "/page1"
   }
+
   const renderEventComponent = () => {
     const { type } = incidentData
 
@@ -149,6 +165,26 @@ export const CreateIncident = () => {
         />
         {renderEventComponent()}
       </Card>
+      {showNotification && (
+        <div
+          style={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)"
+          }}
+        >
+          <Notification
+            title={notificationText}
+            onClose={() => setShowNotification(false)}
+            shadow={true}
+            color={notificationText.includes("başarılı") ? "teal" : "red"}
+            style={{ marginTop: "1rem" }}
+          >
+            <Button onClick={() => setShowNotification(false)}>Close</Button>
+          </Notification>
+        </div>
+      )}
 
       <button onClick={handleSubmit}>Onayla</button>
     </div>

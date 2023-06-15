@@ -51,9 +51,12 @@ const MarkerDetails = () => {
   const handleDeleteIncident = (incidentId) => {
     deleteIncident(incidentId)
       .then((data) => {
-        console.log("Incident deleted successfully")
-        console.log(data)
-        window.location.reload()
+        navigate("/page1", {
+          state: {
+            showNotification: true,
+            notificationText: "Silme işlemi başarılı"
+          }
+        })
       })
       .catch((error) => {
         console.error("Error deleting incident:", error)

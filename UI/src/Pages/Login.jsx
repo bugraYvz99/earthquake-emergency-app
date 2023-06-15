@@ -12,15 +12,15 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="container">
-      <div className="row">
+    <div className="flex flex-col justify-center items-center content-center place-self-center">
+      <div className="w-[100%]">
         {!showVolunteerLogin && (
-          <div className="col-md-6">
+          <div className="w-[100%]">
             <AdminLogin />
           </div>
         )}
         {showVolunteerLogin && (
-          <div className="col-md-6">
+          <div className="w-[100%]">
             <VolunteerLogin />
           </div>
         )}

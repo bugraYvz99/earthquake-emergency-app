@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react"
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchMarkers } from "../thunks/getmarkers"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import RateModal from "./RateModal"
-import { Card, Loader } from "@mantine/core"
-
+import { Button, Card, CheckIcon, Loader, Notification } from "@mantine/core"
+import { IconCircleXFilled } from "@tabler/icons-react"
 const containerStyle = {
   width: "375px",
   height: "300px"
@@ -15,6 +15,7 @@ const containerStyle = {
 const libraries = ["geometry", "drawing"]
 
 const Map = ({ location }) => {
+  const locations = useLocation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [showModal, setShowModal] = useState(false)
@@ -100,7 +101,7 @@ const Map = ({ location }) => {
           <Loader />
         </div>
       ) : (
-        //Google mapin Render olmasını sağlayan komponent ->
+        // Google mapin Render olmasını sağlayan komponent ->
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
@@ -132,51 +133,86 @@ const Map = ({ location }) => {
           )}
         </GoogleMap>
       )}
-      {dbMarkers ? (
-        isLoading ? (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "100vh"
-            }}
+      {dbMarkers && !isLoading ? (
+        <div className="flex flex-col justify-center items-center">
+          {dbMarkers.map((marker, index) => (
+            <Card
+              className="hover:bg-gray-100 hover:h-40"
+              mt={10}
+              bg={"cyan"}
+              shadow="sm"
+              padding="lg"
+              radius="md"
+              withBorder
+              w={"95%"}
+              key={index}
+              onClick={() => handleCardClick(marker)}
+            >
+              <p className="flex justify-center bg-slate-300 font-semibold">
+                Olay {index + 1}
+              </p>
+              <p>Adres: {marker.address}</p>
+              <p>
+                İşaret güvenilirliği:{" "}
+                {marker.ratings.length > 0
+                  ? (
+                      marker.ratings.reduce((a, b) => a + b) /
+                      marker.ratings.length
+                    ).toFixed(2)
+                  : 0}
+              </p>
+            </Card>
+          ))}
+        </div>
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh"
+          }}
+        >
+          <Loader />
+        </div>
+      )}
+
+      {locations.state && locations.state.showNotification && (
+        <div
+          style={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)"
+          }}
+        >
+          <Notification
+            w={350}
+            icon={
+              locations.state.notificationText.includes("Başarılı") ||
+              "başarılı" ? (
+                <CheckIcon size="1.1rem" />
+              ) : (
+                <IconCircleXFilled />
+              )
+            }
+            onClose={() => navigate("/page1", { state: null })}
+            shadow={true}
+            color={
+              locations.state.notificationText.includes("Başarılı") ||
+              "başarılı"
+                ? "teal"
+                : "red"
+            }
+            style={{ marginTop: "1rem" }}
           >
-            <Loader />
-          </div>
-        ) : (
-          <div className="flex flex-col justify-center items-center">
-            {dbMarkers.map((marker, index) => (
-              <Card
-                className="hover:bg-gray-100 hover:h-40"
-                mt={10}
-                bg={"cyan"}
-                shadow="sm"
-                padding="lg"
-                radius="md"
-                withBorder
-                w={"95%"}
-                key={index}
-                onClick={() => handleCardClick(marker)}
-              >
-                <p className="flex justify-center bg-slate-300 font-semibold">
-                  İşaretci {index + 1}
-                </p>
-                <p>Adres: {marker.address}</p>
-                <p>
-                  İşaret güvenilirliği:{" "}
-                  {marker.ratings.length > 0
-                    ? (
-                        marker.ratings.reduce((a, b) => a + b) /
-                        marker.ratings.length
-                      ).toFixed(2)
-                    : 0}
-                </p>
-              </Card>
-            ))}
-          </div>
-        )
-      ) : null}
+            <div className="mt-8">{locations.state.notificationText}</div>
+            <Button onClick={() => navigate("/page1", { state: null })}>
+              Close
+            </Button>
+          </Notification>
+        </div>
+      )}
     </div>
   )
 }

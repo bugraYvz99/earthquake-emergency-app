@@ -45,6 +45,7 @@ const VolunteerLogin = () => {
         {error && <div className="alert alert-danger">{error}</div>}
         <Input.Wrapper label="Telefon numarası" required>
           <Input
+            placeholder="Telefon numaranızı giriniz"
             type="tel"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
@@ -53,6 +54,7 @@ const VolunteerLogin = () => {
         </Input.Wrapper>
         <Input.Wrapper label="Ad" required>
           <Input
+            placeholder="Adınız"
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
@@ -60,6 +62,7 @@ const VolunteerLogin = () => {
         </Input.Wrapper>
         <Input.Wrapper label="Soyad" required>
           <Input
+            placeholder="Soyadınız"
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}

@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { postMarker } from "../thunks/postMarker"
-import { Button, Card, Input, Select } from "@mantine/core"
-import { useNavigate, useParams } from "react-router-dom"
+import { Button, Card, Input, Notification, Select } from "@mantine/core"
+import { Navigate, useNavigate, useParams } from "react-router-dom"
 import axios from "axios"
 import EarthquakeEvent from "../incident-types/EartquakeEvent"
 import FireEvent from "../incident-types/FireEvent"
 import GasLeak from "../incident-types/GasLeak"
 
 const CreateMarker = () => {
+  const [notificationVisible, setNotificationVisible] = useState(false)
+  const [notificationText, setNotificationText] = useState("")
   const navigate = useNavigate()
   const { lat, lng } = useParams()
   const dispatch = useDispatch()
@@ -138,7 +140,7 @@ const CreateMarker = () => {
   const user = useSelector((state) => state.user)
   const userNumber = user.tokenData.phoneNumber
   const userName = user.tokenData.name
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const markerData = {
       userNumber: userNumber,
       userName: userName,
@@ -148,9 +150,29 @@ const CreateMarker = () => {
       },
       address: address
     }
-    dispatch(postMarker({ markerData, incidentData }))
-    window.location.href = "/page1"
+    try {
+      const response = await dispatch(postMarker({ markerData, incidentData }))
+
+      if (response.payload) {
+        setNotificationText("Olay başarılı şekilde oluşturuldu")
+        setNotificationVisible(true)
+        navigate("/page1", {
+          state: {
+            showNotification: true,
+            notificationText: "Olay başarılı şekilde oluşturuldu"
+          }
+        })
+      } else {
+        setNotificationText("Olay oluşturulamadı, Lütfen bilgi giriniz.")
+        setNotificationVisible(true)
+      }
+    } catch (error) {
+      console.log("Error creating marker:", error)
+      setNotificationText("Olay oluşturulamadı, Lütfen Bilgi giriniz.")
+      setNotificationVisible(true)
+    }
   }
+
   return (
     <div className="grid gap-4">
       {/* Input fields for incident data */}
@@ -177,6 +199,26 @@ const CreateMarker = () => {
           Onayla ve haritaya işaretçi oluştur
         </Button>
       </Card>
+      {notificationVisible && (
+        <div
+          style={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)"
+          }}
+        >
+          <Notification
+            title={notificationText}
+            onClose={() => setNotificationVisible(false)}
+            shadow
+            color={notificationText.includes("başarılı") ? "teal" : "red"}
+            style={{ marginTop: "1rem" }}
+          >
+            <Button onClick={() => setNotificationVisible(false)}>Close</Button>
+          </Notification>
+        </div>
+      )}
     </div>
   )
 }

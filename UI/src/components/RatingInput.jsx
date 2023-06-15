@@ -1,12 +1,15 @@
 import React, { useState } from "react"
 import axios from "axios"
-import { useParams } from "react-router-dom"
-import { Button, Card } from "@mantine/core"
+import { useNavigate, useParams } from "react-router-dom"
+import { Button, Card, Notification } from "@mantine/core"
 import config from "../config"
 
 const RatingInput = () => {
+  const [showNotification, setShowNotification] = useState(false)
+  const [notificationText, setNotificationText] = useState("")
   const [rating, setRating] = useState(0)
   const { markerId } = useParams()
+  const navigate = useNavigate()
   const handleRatingChange = (event) => {
     setRating(event.currentTarget.value)
   }
@@ -24,13 +27,19 @@ const RatingInput = () => {
         }
       })
       .then((response) => {
-        console.log(response.data) // Handle the response data as needed
+        console.log(response.statusText)
+        navigate("/page1", {
+          state: {
+            showNotification: true,
+            notificationText: "Başarılı şekilde puanlandı"
+          }
+        }) // Handle the response data as needed
       })
       .catch((error) => {
         console.error(error)
       })
   }
-  console.log(rating)
+
   return (
     <Card top={20} h={350}>
       <h2 className="mb-2 mt-2 font-semibold text-xl ">

@@ -20,8 +20,6 @@ export const postMarker = createAsyncThunk(
           }
         }
       )
-      console.log(markerData)
-      console.log(response.data)
 
       if (response.status === 200) {
         // Successful request, handle the response data as needed

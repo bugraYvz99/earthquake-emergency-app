@@ -47,12 +47,12 @@ const DataShowPage = () => {
         <td>{marker.address}</td>
         <td>
           <p>
-            {" 5/"}
             {marker.ratings.length > 0
               ? (
                   marker.ratings.reduce((a, b) => a + b) / marker.ratings.length
                 ).toFixed(2)
               : 0}
+            {" /5"}
           </p>
         </td>
       </tr>

@@ -12,7 +12,8 @@ const FireEvent = ({
       return null
     }
     return incidentData.details.personInfos.map((person, index) => (
-      <div className=" mt-4" key={index}>
+      <div className="flex flex-col gap-2 mt-4" key={index}>
+        <h1>Kişi {index + 1}</h1>
         <Input
           name={`details.personInfos.${index}.name`}
           value={person.name}
@@ -52,6 +53,20 @@ const FireEvent = ({
       }
     }))
   }
+  const handleDeletePerson = (index) => {
+    setIncidentData((prevState) => {
+      const updatedPersonInfos = [...prevState.details.personInfos]
+      updatedPersonInfos.splice(index, 1)
+
+      return {
+        ...prevState,
+        details: {
+          ...prevState.details,
+          personInfos: updatedPersonInfos
+        }
+      }
+    })
+  }
   const handleSelectChange = (selectedOption, name) => {
     setIncidentData((prevData) => ({
       ...prevData,
@@ -90,9 +105,18 @@ const FireEvent = ({
         />
       </Input.Wrapper>
       {renderPersonInputs()}
-      <Button variant="outline" onClick={handleAddPerson}>
-        Kişi ekle
-      </Button>
+      <div className="my-5">
+        <Button className="mx-2" variant="outline" onClick={handleAddPerson}>
+          Kişi ekle
+        </Button>
+        <Button
+          className="mx-2"
+          variant="outline"
+          onClick={(index) => handleDeletePerson(index)}
+        >
+          Delete Person
+        </Button>
+      </div>
     </Card>
   )
 }

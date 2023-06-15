@@ -1,6 +1,5 @@
 import React from "react"
-import { Button, Card, Input } from "@mantine/core"
-
+import { Button, Card, Input, Select } from "@mantine/core"
 const GasLeak = ({
   handleInputChange2,
   handleInputChange,
@@ -12,7 +11,8 @@ const GasLeak = ({
       return null
     }
     return incidentData.details.personInfos.map((person, index) => (
-      <div className=" mt-4" key={index}>
+      <div className="flex flex-col gap-2 mt-4" key={index}>
+        <h1>Kişi {index + 1}</h1>
         <Input
           name={`details.personInfos.${index}.name`}
           value={person.name}
@@ -25,12 +25,15 @@ const GasLeak = ({
           onChange={handleInputChange2}
           placeholder="Surname"
         />
-        <Input
-          name={`details.personInfos.${index}.tcNo`}
-          value={person.tcNo}
-          onChange={handleInputChange2}
-          placeholder="TC No"
-        />
+        <Input.Wrapper required>
+          <Input
+            required
+            name={`details.personInfos.${index}.tcNo`}
+            value={person.tcNo}
+            onChange={handleInputChange2}
+            placeholder="TC No"
+          />
+        </Input.Wrapper>
         <Input
           name={`details.personInfos.${index}.health`}
           value={person.health}
@@ -52,6 +55,20 @@ const GasLeak = ({
       }
     }))
   }
+  const handleDeletePerson = (index) => {
+    setIncidentData((prevState) => {
+      const updatedPersonInfos = [...prevState.details.personInfos]
+      updatedPersonInfos.splice(index, 1)
+
+      return {
+        ...prevState,
+        details: {
+          ...prevState.details,
+          personInfos: updatedPersonInfos
+        }
+      }
+    })
+  }
   const handleSelectChange = (selectedOption, name) => {
     setIncidentData((prevData) => ({
       ...prevData,
@@ -68,11 +85,25 @@ const GasLeak = ({
         label="
       Gaz Durumu"
       >
-        <Input
+        <Select
           type="text"
           name="details.gasStuation"
           value={incidentData.details.gasStuation}
-          onChange={handleInputChange}
+          onChange={(selectedOption) =>
+            handleSelectChange(selectedOption, "gasStatus")
+          }
+          data={[
+            { value: "Gaz kaçağı riski", label: "Gaz kaçağı riski" },
+            { value: "Gaz kaçağı var", label: "Gaz kaçağı var" },
+            {
+              value: "Yüksek miktarda tüpgaz ve gaz kaçağı var",
+              label: "Yüksek miktarda tüpgaz ve gaz kaçağı var"
+            },
+            {
+              value: "Gaz kaçağı patlaması yaşandı",
+              label: "Gaz kaçağı patlaması yaşandı"
+            }
+          ]}
         />
       </Input.Wrapper>
       <Input.Wrapper label="Zehirlenen Kişi Sayısı">
@@ -83,10 +114,27 @@ const GasLeak = ({
           onChange={handleInputChange}
         />
       </Input.Wrapper>
+      <Input.Wrapper label="Yaralanan Kişi Sayısı">
+        <Input
+          type="text"
+          name="persons.injured"
+          value={incidentData.details.injured}
+          onChange={handleInputChange}
+        />
+      </Input.Wrapper>
       {renderPersonInputs()}
-      <Button variant="outline" onClick={handleAddPerson}>
-        Kişi ekle
-      </Button>
+      <div className="my-5">
+        <Button className="mx-2" variant="outline" onClick={handleAddPerson}>
+          Kişi ekle
+        </Button>
+        <Button
+          className="mx-2"
+          variant="outline"
+          onClick={(index) => handleDeletePerson(index)}
+        >
+          Delete Person
+        </Button>
+      </div>
     </Card>
   )
 }

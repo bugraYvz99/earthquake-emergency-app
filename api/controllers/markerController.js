@@ -76,7 +76,6 @@ exports.rateMarker = async (req, res) => {
     })
   }
 }
-
 exports.getAllMarkers = async (req, res) => {
   try {
     const markers = await markerService.getAllMarkers()

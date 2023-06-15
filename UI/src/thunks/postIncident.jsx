@@ -17,9 +17,10 @@ export const postIncident = async (markerId, incidentData) => {
         }
       }
     )
-    return response.data.incident
+    console.log(response)
+    return response.status
   } catch (error) {
     console.error(error)
-    throw new Error("Error creating incident")
+    throw new Error("Olay oluşturulamadı")
   }
 }

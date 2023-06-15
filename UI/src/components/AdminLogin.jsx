@@ -23,7 +23,6 @@ const AdminLogin = () => {
       window.location = "/"
     } catch (error) {
       setError(error.response.data.message)
-      console.log(error.response.data.message)
     }
   }
   return (
@@ -33,7 +32,7 @@ const AdminLogin = () => {
       padding="lg"
       radius="md"
       withBorder
-      className="grid col-span-4 mx-auto mt-32 shadow-2xl w-full"
+      className="grid col-span-4 mt-32 shadow-2xl  mx-auto"
     >
       <form
         className="flex flex-col items-center gap-5  justify-center"
@@ -47,7 +46,7 @@ const AdminLogin = () => {
           <Input
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
-            placeholder="Enter your phone number"
+            placeholder="Telefon numaranızı giriniz"
             id="phoneNumber"
             type="text"
             required
@@ -57,7 +56,7 @@ const AdminLogin = () => {
           <Input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your password"
+            placeholder="Şifrenizi giriniz"
             id="password"
             type="password"
             required

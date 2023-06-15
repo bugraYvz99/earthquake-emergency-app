@@ -4,7 +4,7 @@ import { Button, Card, Input, Select } from "@mantine/core"
 import { getMarkerByMarkerId } from "../thunks/getMarkerById"
 import { Link } from "react-router-dom"
 import config from "../config"
-
+import { IconLocation, IconSearch } from "@tabler/icons-react"
 export const SearchPage = () => {
   const [buildingSearchQuery, setBuildingSearchQuery] = useState("")
   const [personSearchQuery, setPersonSearchQuery] = useState("")
@@ -104,11 +104,16 @@ export const SearchPage = () => {
             { label: "Genel Hasar Bilgisi", value: "Deprem" }
             // Diğer tipleri buraya ekleyebilirsiniz
           ]}
+          placeholder="Aratacağınız eylemi seçin"
           type="text"
           value={buildingSearchQuery}
           onChange={(value) => setBuildingSearchQuery(value)}
         />
-        <Button variant="default" onClick={handleBuildingSearch}>
+        <Button
+          rightIcon={<IconSearch />}
+          variant="default"
+          onClick={handleBuildingSearch}
+        >
           Search
         </Button>
         <ul>
@@ -123,12 +128,10 @@ export const SearchPage = () => {
                       {result.details.personInfos.map((person, index1) => (
                         <Card key={index1}>
                           <p className="font-bold">{"Kişi: " + (index1 + 1)}</p>
-                          <li key={index1}>{"Adı: " + person.name}</li>
-                          <li key={index1}>{"Soyadı: " + person.surname}</li>
-                          <li key={index1}>{"TC Kimlik No: " + person.tcNo}</li>
-                          <li key={index1}>
-                            {"Sağlık Durumu: " + person.health}
-                          </li>
+                          <li>{"Adı: " + person.name}</li>
+                          <li>{"Soyadı: " + person.surname}</li>
+                          <li>{"TC Kimlik No: " + person.tcNo}</li>
+                          <li>{"Sağlık Durumu: " + person.health}</li>
                         </Card>
                       ))}
                     </ul>
@@ -143,6 +146,15 @@ export const SearchPage = () => {
                     >
                       {markers[index].address}
                     </Link>
+                    <Button
+                      rightIcon={<IconLocation />}
+                      ml={5}
+                      variant="outline"
+                      onClick={() => handleAddressClick(markers[index].address)}
+                    >
+                      {" "}
+                      Adrese git
+                    </Button>
                   </>
                 )}
               </Card>
@@ -153,14 +165,19 @@ export const SearchPage = () => {
         </ul>
       </div>
 
-      <div>
+      <div className="mt-10">
         <h1>Kişi arama</h1>
         <Input
           type="text"
           value={personSearchQuery}
           onChange={(e) => setPersonSearchQuery(e.target.value)}
+          placeholder="Aratacağınız kişinin bilgileri (TC, Ad, Soyad)"
         />
-        <Button variant="default" onClick={handlePersonSearch}>
+        <Button
+          rightIcon={<IconSearch />}
+          variant="default"
+          onClick={handlePersonSearch}
+        >
           Search
         </Button>
         <ul>
@@ -175,22 +192,28 @@ export const SearchPage = () => {
                   {result.details.personInfos.map((person, index1) => (
                     <Card key={index1}>
                       <p className="font-bold">{"Kişi: " + (index1 + 1)}</p>
-                      <li key={index1}>{"Adı: " + person.name}</li>
-                      <li key={index1}>{"Soyadı: " + person.surname}</li>
-                      <li key={index1}>{"TC Kimlik No: " + person.tcNo}</li>
-                      <li key={index1}>{"Sağlık Durumu: " + person.health}</li>
+                      <li>{"Adı: " + person.name}</li>
+                      <li>{"Soyadı: " + person.surname}</li>
+                      <li>{"TC Kimlik No: " + person.tcNo}</li>
+                      <li>{"Sağlık Durumu: " + person.health}</li>
                     </Card>
                   ))}
                 </ul>
                 {markers[index] && (
                   <>
                     <h2>Adres:</h2>
-                    <Link
-                      className="address-link"
-                      onClick={() => handleAddressClick(markers[index].address)}
-                    >
+                    <Link className="address-link">
                       {markers[index].address}
                     </Link>
+                    <Button
+                      rightIcon={<IconLocation />}
+                      ml={5}
+                      variant="outline"
+                      onClick={() => handleAddressClick(markers[index].address)}
+                    >
+                      {" "}
+                      Adrese git
+                    </Button>
                   </>
                 )}
               </Card>
