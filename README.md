@@ -145,7 +145,9 @@ import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api"
             
 ### Mantine
 
-Mantine kütüphanesi bu projede stillendirme ve görsel tasarım için kullanılmıştır.
+Mantine, modern ve özelleştirilebilir React bileşenlerini sağlayan bir kütüphanedir. Projenizde hızlı ve güzel kullanıcı arayüzleri oluşturmak için kullanabilirsiniz. Mantine, geniş bir bileşen koleksiyonuna ve birçok farklı özelliğe sahiptir.
+#### Kullanım amacı
+Mantine, kullanıcı arayüzünüzü hızlı bir şekilde oluşturmanızı sağlar. Özelleştirilebilir bileşenlerle birlikte gelir ve tasarım dilinizi takip edebilirsiniz. Mantine, modern UI trendlerini takip eden ve en iyi performansı sunan bir yapıya sahiptir.
 
 ```javascript
 // Mantine'nın projeye eklendiği kod
