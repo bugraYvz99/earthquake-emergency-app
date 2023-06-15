@@ -2,7 +2,7 @@
 - [Özellikler](#özellikler)
 - [Uygulama Görselleri](#uygulama-görselleri)
 - [Kullanılan Teknolojiler](#Kullanılan-Teknolojiler)
-
+### [Web sitesi](https://167.71.54.93)
 
 
 # Deprem Sonrası Acil Durum Yönetimi Uygulaması
