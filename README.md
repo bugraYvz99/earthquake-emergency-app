@@ -1,7 +1,7 @@
 # Başlıklar
 - [Özellikler](#özellikler)
 - [Uygulama Görselleri](#uygulama-görselleri)
-- [Dışarıdan kullanılan öğeler](#dışarıdan-kullanılan-öğeler)
+- [Kullanılan Teknolojiler](#Kullanılan-Teknolojiler)
 
 
 
@@ -99,7 +99,7 @@ Aynı şekilde insanların yakınlarını görselde ki gibi arayıp durumların�
 
 ![image](https://github.com/bugraYvz99/earthquake-emergency-app/assets/105501911/44f7ccca-cbe9-4f15-af34-d3c7acaeb25b)
 
-## Dışarıdan kullanılan öğeler
+## Kullanılan Teknolojiler
 
 Uygulamada Google-Map api, Mantine, Tailwind.Css kullanılmıştır.
 
