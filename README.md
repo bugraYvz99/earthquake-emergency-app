@@ -1,3 +1,9 @@
+# Başlıklar
+- [Özellikler](#özellikler)
+- [Uygulama Görselleri](#uygulama-görselleri)
+- [Dışarıdan kullanılan öğeler](#dışarıdan-kullanılan-öğeler)
+
+
 
 # Deprem Sonrası Acil Durum Yönetimi Uygulaması
 
@@ -32,12 +38,14 @@ Depremzede yakınları, ulaşım sağlayamadığı yakınlarını uygulama için
 ### 1) Uygulama yetkili girişi
 Yetkili olarak giriş için daha önceden size verilmiş bir password bilgisi gereklidir. Bunun için bir devlet kurumuna bağlı olmanız simüle edilerek dizayn edilmiştir.
 Yetkili giriş yapanlar harita üzerinde ki bildirilmiş olay işaretleri için bir güvenilirlik puanlaması yapabilirler.
+
 ![image](https://github.com/bugraYvz99/earthquake-emergency-app/assets/105501911/3ae7f7d6-56da-4ad5-8a43-49c1ad594e21)
 
 
  ### 2) Uygulama gönüllü  girişi
 
  Gönüllü Giriş yapmak için sadece telefon numarası girmek yeterlidir. Ad ve Soyad isteğe bağlıdır. Telefon numaranız adınız ve soyadınız ile giriş yaptığınızda , daha sonra ki girişlerinizde sadece telefon numaranızı girerseniz adınız ve soyadınız tanınacaktır.
+ 
 ![image](https://github.com/bugraYvz99/earthquake-emergency-app/assets/105501911/09785694-3616-4219-b082-c4c470b91767)
 
  ### 3) Ana sayfa
@@ -158,3 +166,51 @@ function App() {
   )
 }
 ```
+
+### PM2
+
+Bu proje, uygulamanın yürütülmesini ve yönetimini sağlamak için PM2'yi (Process Manager 2) kullanmaktadır. PM2, Node.js uygulamaları için gelişmiş bir işlem yöneticisidir ve sunucu tarafı uygulamalarının güvenilir ve sorunsuz bir şekilde çalışmasını sağlar.
+
+#### PM2 Nedir?
+
+- **İşlem Yönetimi:** PM2, uygulamaları sürekli olarak çalıştırır ve izler. Arka planda birden çok işlemi yönetir, bu sayede uygulamanızın sürekli olarak erişilebilir olmasını sağlar.
+
+- **Otomatik Yeniden Başlatma:** Arıza durumlarında veya çökmelerde PM2 otomatik olarak uygulamayı yeniden başlatır. Bu sayede uygulama kesintisiz olarak çalışmaya devam eder ve hataların hızlıca giderilmesi sağlanır.
+
+- **Gelişmiş Günlükleme:** PM2, uygulama günlüklerini takip etmenizi sağlar. Gerçek zamanlı olarak hata ve hata ayıklama bilgilerini izleyebilirsiniz.
+
+- **Yük Dengeleme ve Ölçeklenebilirlik:** PM2, gelen trafiği birden çok uygulama örneği arasında dağıtabilir. Bu sayede yük dengesi sağlanır ve kaynakların daha verimli kullanılması mümkün olur.
+
+- **Kolay Dağıtım ve Güncelleme:** PM2 ile uygulamanızın güncellenmesi ve dağıtılması sorunsuzdur. Sıfır kesinti sürecini destekler, bu sayede kullanıcılara kesintisiz bir deneyim sunulur.
+
+- Bu proje, Node.js ve Express.js framework'ü kullanarak geliştirilmiştir. Ayrıca, kullanıcı kimlik doğrulama ve yetkilendirme için JWT (JSON Web Token) yöntemini kullanmaktadır.
+
+  
+
+### Express ve JWT
+
+- **Express.js Framework:** Bu proje, web uygulamasının hızlı ve verimli bir şekilde geliştirilmesi için Express.js framework'ünü kullanır. Express.js, minimal ve esnek yapısıyla web uygulamalarının oluşturulmasını kolaylaştırır.
+
+- **Kullanıcı Kimlik Doğrulama ve Yetkilendirme:** Proje, kullanıcıların kimlik doğrulama sürecini yönetmek ve güvenli bir şekilde yetkilendirilmelerini sağlamak için JWT kullanır. JWT, güvenli bir şekilde kullanıcı bilgilerini depolamak ve kullanıcının oturum durumunu takip etmek için kullanılır.
+  
+- Bu projede JWT, kullanıcı kimlik doğrulama ve yetkilendirme süreçlerini yönetmek için kullanılır. Kullanıcı kaydı, girişi ve yetkilendirme işlemleri için JWT aşağıdaki adımları takip eder:
+
+1. Kullanıcı kaydı yapılırken, kullanıcının girdiği bilgiler doğrulanır ve JWT oluşturulur.
+
+2. Kullanıcı giriş yaptığında, sunucu tarafında kullanıcı bilgileri doğrulanır ve JWT oluşturulur.
+
+3. Oluşturulan JWT, kullanıcıya bir token olarak verilir ve tarayıcının `localStorage` veya `sessionStorage` gibi mekanizmalarında saklanır.
+
+4. Kullanıcı her istekte bu token'ı sunucuya gönderir ve sunucu tarafında doğrulama yapılır.
+
+5. Yetkilendirme gerektiren isteklerde, sunucu JWT token'ını kontrol eder ve geçerliyse isteği işleme alır, aksi takdirde erişimi reddeder.
+
+
+### Daha Fazla Bilgi
+
+Daha fazla bilgi için Express.js ve JWT belgelerine başvurabilirsiniz:
+- [PM2 belgelerine](https://pm2.keymetrics.io/) 
+- [Express.js Dokümantasyonu](https://expressjs.com/)
+- [JSON Web Token (JWT) İnternet Standardı](https://jwt.io/)
+- [Mantine Dokümantasyonu](https://mantine.dev/)
+- [Google API Dokümantasyonu](https://developers.google.com/maps?hl=tr)
