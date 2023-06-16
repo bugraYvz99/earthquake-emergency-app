@@ -2,7 +2,16 @@
 - [Özellikler](#özellikler)
 - [Uygulama Görselleri](#uygulama-görselleri)
 - [Kullanılan Teknolojiler](#Kullanılan-Teknolojiler)
-### [Web sitesi](https://167.71.54.93)
+  
+
+### **Uygulamayı açmak için;**  
+- **[Web sitesi](https://167.71.54.93)** adresine Safari hariç bir Browser ile giriş yapın.
+- Daha iyi bir deneyim için telefon ile giriş yapın(Uygulama **Mobile-First responsive** olarak dizayn edilmiştir).
+- Güvenlik uyarısı çıktığında gelişmiş ayarlar butonuna tıklayın.
+- Yinede siteye devam et butonuna tıklayın.
+- Konum izni istendiğinde izin verin.
+
+
 
 
 # Deprem Sonrası Acil Durum Yönetimi Uygulaması
@@ -12,23 +21,23 @@ Bu proje, deprem sonrasında alandaki binaların durumunun ve uğradıkları zar
 
 ## Özellikler
 
-- Bina Durumu Gösterimi:
+- **Bina Durumu Gösterimi:**
 
 Kullanıcılar, binaların zarar durumunu harita üzerinde görebilirler.
 Yıkımın şekli, yangın durumu, gaz ve su sızıntısı, tüp gaz olup olmaması, çatı, kat, merdiven, asansör, duvar, kolon, tablaların durumu gibi bilgileri girebilirler.
-- Kurtarma ve Sağlık Durumu Bilgileri:
+- **Kurtarma ve Sağlık Durumu Bilgileri:**
 
 Kullanıcılar, deprem sırasında içeride olan kişilerin sayısı, yıkıldıktan sonra içeride kalan kişilerin sayısı, kurtarılan kişilerin bilgileri, ölü ve yaralı sayısı gibi bilgileri girebilirler.
-- Güvenilirlik Hesaplama:
+- **Güvenilirlik Hesaplama:**
 
 Veri girişlerinin güvenilirliği, kullanıcıların geri bildirimleri, puanlamaları ve yetkili onayı gibi faktörlere dayalı olarak hesaplanır.
 Güvenilir olmayan verilerin yanıltıcı bilgilere sebep olması engellenir.
 
-- Hızlı Müdahale:
+- **Hızlı Müdahale:**
  
  Ekipler haritada ilgili olay bildirilerini ve içeriklerini görerek, ihtiyaca göre personel tesis edebilirler.
 
- - Kişi Arama:
+ - **Kişi Arama:**
 
 Depremzede yakınları, ulaşım sağlayamadığı yakınlarını uygulama içinde arayabilir, harita üzerinde herhangi bir veri içerisinde Ad, Soyad, T.C numarası girildi ise, durumunu öğrenebilirler.
 
@@ -101,7 +110,7 @@ Aynı şekilde insanların yakınlarını görselde ki gibi arayıp durumların�
 
 ## Kullanılan Teknolojiler
 
-Uygulamada Google-Map api, Mantine, Tailwind.Css kullanılmıştır.
+Uygulamada **Google-Map api**, **Mantine**, **Tailwind.Css**, **PM2**, **Express.js** ve **JWT (Json Web Token)** kullanılmıştır.
 
 ### Google Map
 Google-Map Api uygulamada yalnızca Harita ve Yol tarifleri amacı ile kullanılmıştır.
@@ -210,8 +219,8 @@ Bu proje, uygulamanın yürütülmesini ve yönetimini sağlamak için PM2'yi (P
 
 ### Daha Fazla Bilgi
 
-Daha fazla bilgi için Express.js ve JWT belgelerine başvurabilirsiniz:
-- [PM2 belgelerine](https://pm2.keymetrics.io/) 
+Daha fazla bilgi için aşağıda ki resmi sitelere başvurabilirsiniz:
+- [PM2 Dökümantasyonu](https://pm2.keymetrics.io/docs/usage/quick-start/) 
 - [Express.js Dokümantasyonu](https://expressjs.com/)
 - [JSON Web Token (JWT) İnternet Standardı](https://jwt.io/)
 - [Mantine Dokümantasyonu](https://mantine.dev/)
