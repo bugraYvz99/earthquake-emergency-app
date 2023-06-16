@@ -110,7 +110,7 @@ Aynı şekilde insanların yakınlarını görselde ki gibi arayıp durumların�
 
 ## Kullanılan Teknolojiler
 
-Uygulamada **Google-Map api**, **Mantine**, **Tailwind.Css**, **PM2**, **Express.js** ve **JWT (Json Web Token)** kullanılmıştır.
+Uygulamada **Google-Map api**, **Mantine**, **Tailwind.Css**, **PM2**, **Express.js** ve **JWT (Json Web Token)**, SSL için **NGINX** Server için **Digital Ocean** ve **Droplet** kullanılmıştır.
 
 ### Google Map
 Google-Map Api uygulamada yalnızca Harita ve Yol tarifleri amacı ile kullanılmıştır.
@@ -216,6 +216,24 @@ Bu proje, uygulamanın yürütülmesini ve yönetimini sağlamak için PM2'yi (P
 
 5. Yetkilendirme gerektiren isteklerde, sunucu JWT token'ını kontrol eder ve geçerliyse isteği işleme alır, aksi takdirde erişimi reddeder.
 
+### NGINX
+
+NGINX, açık kaynaklı bir web sunucusu ve ters proxy sunucusudur. Web sitelerinin hızlı, güvenli ve ölçeklenebilir bir şekilde dağıtılmasına yardımcı olan popüler bir yazılımdır.
+NGINX'in en yaygın kullanım alanlarından biri, SSL (Secure Sockets Layer) sertifikalarıyla güvenli bağlantılar sağlamaktır. SSL, verilerin internet üzerinde şifrelenerek iletilmesini sağlayan bir güvenlik protokolüdür. Bu sayede kullanıcıların bilgileri, iletişim sırasında üçüncü tarafların erişimine karşı korunur.
+Projede NGINX **SSL** için kullanılmış ve web sitesinin **HTTPS** protokolüyle güvence altına alınması sağlanmıştır. 
+
+### Digital Ocean && Droplet
+
+**DigitalOcean**, bir bulut barındırma sağlayıcısıdır ve droplet adını verdiği sanal özel sunucuları (VPS) kullanıcılara sunmaktadır. **Dropletler**, kullanıcılara özelleştirilebilir bir sunucu ortamı sağlayarak uygulamalarını, web sitelerini veya diğer hizmetlerini barındırmalarını sağlar.
+
+**Dropletler**, çeşitli özelliklere sahip olabilirler. İşletim sistemi seçimi yapabilir ve önceden yapılandırılmış görüntülerden veya özelleştirilmiş görüntülerden birini kullanabilirsiniz. Ayrıca, dropletin boyutunu (RAM, işlemci gücü, disk alanı vb.) ihtiyaçlarınıza göre ölçekleyebilirsiniz. DigitalOcean, farklı droplet tipleri sunarak çeşitli performans ve fiyat seçenekleri sunar.
+
+Projede kullanılan Dropletin ekran görüntüsü ( DigitalOcean.com );
+
+![image](https://github.com/bugraYvz99/earthquake-emergency-app/assets/105501911/5d911771-0ba2-4920-b19d-7772ea336a9a)
+
+Görüntüde belirtildiği gibi projenin bulunduğu **Droplet 1 GB Memory / 25 GB Disk / FRA1 - Ubuntu 22.04 (LTS) x64 (İşletim sistemi)** özelliklerine sahiptir
+
 
 ### Daha Fazla Bilgi
 
@@ -225,3 +243,5 @@ Daha fazla bilgi için aşağıda ki resmi sitelere başvurabilirsiniz:
 - [JSON Web Token (JWT) İnternet Standardı](https://jwt.io/)
 - [Mantine Dokümantasyonu](https://mantine.dev/)
 - [Google API Dokümantasyonu](https://developers.google.com/maps?hl=tr)
+- [NGINX](https://docs.nginx.com/)
+- [Digital Ocean](https://docs.digitalocean.com/products/)
