@@ -1,52 +1,52 @@
-import React, { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
-import { getIncidentDataByMarkerId } from "../thunks/getIncidentData"
-import { getMarkerByMarkerId } from "../thunks/getMarkerById"
-import { deleteIncident } from "../thunks/deleteIncident"
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getIncidentDataByMarkerId } from "../thunks/getIncidentData";
+import { getMarkerByMarkerId } from "../thunks/getMarkerById";
+import { deleteIncident } from "../thunks/deleteIncident";
 
-import ShowEarthquake from "../incident-show/ShowEarthquake"
+import ShowEarthquake from "../incident-show/ShowEarthquake";
 
-import ShowGasLeak from "../incident-show/ShowGasLeak"
-import ShowFire from "../incident-show/ShowFire"
-import { Button } from "@mantine/core"
-import MarkerDetailMap from "../components/MarkerDetailMap"
+import ShowGasLeak from "../incident-show/ShowGasLeak";
+import ShowFire from "../incident-show/ShowFire";
+import { Button } from "@mantine/core";
+import MarkerDetailMap from "../components/MarkerDetailMap";
 
 const MarkerDetails = () => {
-  const navigate = useNavigate()
-  const { markerId } = useParams()
-  const [incident, setIncident] = useState([])
-  const [marker, setMarker] = useState({})
-  const dispatch = useDispatch()
-  const ownerBackgroundClass = "bg-blue-200"
+  const navigate = useNavigate();
+  const { markerId } = useParams();
+  const [incident, setIncident] = useState([]);
+  const [marker, setMarker] = useState({});
+  const dispatch = useDispatch();
+  const ownerBackgroundClass = "bg-blue-200";
 
   useEffect(() => {
     // Markerı almak için getMarkerByMarkerId thunk'ını dispatch edin
     getMarkerByMarkerId(markerId)
       .then((marker) => {
-        setMarker(marker)
+        setMarker(marker);
 
         // İşlemlere devam edebilirsiniz...
       })
       .catch((error) => {
-        console.error(error)
+        console.error(error);
         // Hata durumunu ele alabilirsiniz...
-      })
+      });
 
     // İlgili olay verilerini almak için getIncidentDataByMarkerId thunk'ını dispatch edin
     dispatch(getIncidentDataByMarkerId(markerId))
       .unwrap()
       .then((data) => {
-        setIncident(data.incidents)
+        setIncident(data.incidents);
       })
       .catch((error) => {
-        console.log(error)
-      })
-  }, [dispatch, markerId])
+        console.log(error);
+      });
+  }, [dispatch, markerId]);
 
   const handleCreateIncident = () => {
-    navigate(`/create-incident/${markerId}`)
-  }
+    navigate(`/create-incident/${markerId}`);
+  };
 
   const handleDeleteIncident = (incidentId) => {
     deleteIncident(incidentId)
@@ -54,36 +54,36 @@ const MarkerDetails = () => {
         navigate("/page1", {
           state: {
             showNotification: true,
-            notificationText: "Silme işlemi başarılı"
-          }
-        })
+            notificationText: "Silme işlemi başarılı",
+          },
+        });
       })
       .catch((error) => {
-        console.error("Error deleting incident:", error)
-      })
-    console.log("Delete incident:", incidentId)
-  }
+        console.error("Error deleting incident:", error);
+      });
+    console.log("Delete incident:", incidentId);
+  };
   const renderIncidentComponent = (incidentType, incident) => {
     switch (incidentType) {
       case "Gaz kaçağı":
-        return <ShowGasLeak incident={incident} />
+        return <ShowGasLeak incident={incident} />;
       case "Yangın":
-        return <ShowFire incident={incident} />
+        return <ShowFire incident={incident} />;
       case "Deprem":
-        return <ShowEarthquake incident={incident} />
+        return <ShowEarthquake incident={incident} />;
       default:
-        return null
+        return null;
     }
-  }
+  };
 
   return (
     <div>
       {marker && <MarkerDetailMap markerData={marker} />}
       {Array.isArray(incident) && incident.length > 0 ? (
         incident.map((item) => {
-          const createdAt = new Date(item._doc.created_at)
-          const formattedTime = `${createdAt.getHours()}:${createdAt.getMinutes()}`
-          const formattedDate = createdAt.toLocaleDateString("en-US")
+          const createdAt = new Date(item._doc.created_at);
+          const formattedTime = `${createdAt.getHours()}:${createdAt.getMinutes()}`;
+          const formattedDate = createdAt.toLocaleDateString("en-US");
           return (
             <div
               key={item._doc._id}
@@ -113,7 +113,7 @@ const MarkerDetails = () => {
                 </div>
               )}
             </div>
-          )
+          );
         })
       ) : (
         <p>No incident data available.</p>
@@ -126,7 +126,7 @@ const MarkerDetails = () => {
         Bilgi ekle
       </Button>
     </div>
-  )
-}
+  );
+};
 
-export default MarkerDetails
+export default MarkerDetails;

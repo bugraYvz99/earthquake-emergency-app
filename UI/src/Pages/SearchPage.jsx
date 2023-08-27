@@ -1,54 +1,54 @@
-import React, { useEffect, useState } from "react"
-import axios from "axios"
-import { Button, Card, Input, Select } from "@mantine/core"
-import { getMarkerByMarkerId } from "../thunks/getMarkerById"
-import { Link } from "react-router-dom"
-import config from "../config"
-import { IconLocation, IconSearch } from "@tabler/icons-react"
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Button, Card, Input, Select } from "@mantine/core";
+import { getMarkerByMarkerId } from "../thunks/getMarkerById";
+import { Link } from "react-router-dom";
+import config from "../config";
+import { IconLocation, IconSearch } from "@tabler/icons-react";
 export const SearchPage = () => {
-  const [buildingSearchQuery, setBuildingSearchQuery] = useState("")
-  const [personSearchQuery, setPersonSearchQuery] = useState("")
-  const [buildingSearchResults, setBuildingSearchResults] = useState([])
-  const [personSearchResults, setPersonSearchResults] = useState([])
-  const [markers, setMarkers] = useState([])
-  const token = localStorage.getItem("token")
-  const baseUrl = config.baseUrl
+  const [buildingSearchQuery, setBuildingSearchQuery] = useState("");
+  const [personSearchQuery, setPersonSearchQuery] = useState("");
+  const [buildingSearchResults, setBuildingSearchResults] = useState([]);
+  const [personSearchResults, setPersonSearchResults] = useState([]);
+  const [markers, setMarkers] = useState([]);
+  const token = localStorage.getItem("token");
+  const baseUrl = config.baseUrl;
 
   useEffect(() => {
     // Helper function to fetch marker by markerId
     const fetchMarker = async (markerId) => {
       try {
-        const response = await getMarkerByMarkerId(markerId)
-        return response
+        const response = await getMarkerByMarkerId(markerId);
+        return response;
       } catch (error) {
-        console.error("Error fetching marker:", error)
-        return null
+        console.error("Error fetching marker:", error);
+        return null;
       }
-    }
+    };
 
     // Fetch markers for building search results
     const fetchBuildingMarkers = async () => {
       const fetchedMarkers = await Promise.all(
         buildingSearchResults.map((result) => fetchMarker(result.markerId))
-      )
-      setMarkers(fetchedMarkers)
-    }
+      );
+      setMarkers(fetchedMarkers);
+    };
 
     // Fetch markers for person search results
     const fetchPersonMarkers = async () => {
       const fetchedMarkers = await Promise.all(
         personSearchResults.map((result) => fetchMarker(result.markerId))
-      )
-      setMarkers(fetchedMarkers)
-    }
+      );
+      setMarkers(fetchedMarkers);
+    };
 
     // Fetch markers based on search results
     if (buildingSearchResults.length > 0) {
-      fetchBuildingMarkers()
+      fetchBuildingMarkers();
     } else if (personSearchResults.length > 0) {
-      fetchPersonMarkers()
+      fetchPersonMarkers();
     }
-  }, [buildingSearchResults, personSearchResults])
+  }, [buildingSearchResults, personSearchResults]);
 
   const handleBuildingSearch = async () => {
     try {
@@ -57,17 +57,17 @@ export const SearchPage = () => {
         {
           params: { query: buildingSearchQuery },
           headers: {
-            Authorization: token
-          }
+            Authorization: token,
+          },
         }
-      )
+      );
 
-      console.log("Building search results:", response.data)
-      setBuildingSearchResults(response.data)
+      console.log("Building search results:", response.data);
+      setBuildingSearchResults(response.data);
     } catch (error) {
-      console.error("Error performing building search:", error)
+      console.error("Error performing building search:", error);
     }
-  }
+  };
 
   const handlePersonSearch = async () => {
     try {
@@ -76,22 +76,22 @@ export const SearchPage = () => {
         {
           params: { query: personSearchQuery },
           headers: {
-            Authorization: token
-          }
+            Authorization: token,
+          },
         }
-      )
+      );
 
-      console.log("Person search results:", response.data)
-      setPersonSearchResults(response.data)
+      console.log("Person search results:", response.data);
+      setPersonSearchResults(response.data);
     } catch (error) {
-      console.error("Error performing person search:", error)
+      console.error("Error performing person search:", error);
     }
-  }
+  };
   const handleAddressClick = (address) => {
-    const formattedAddress = address.replace(/\s/g, "+")
-    const url = `https://www.google.com/maps/dir/?api=1&destination=${formattedAddress}`
-    window.open(url, "_blank")
-  }
+    const formattedAddress = address.replace(/\s/g, "+");
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${formattedAddress}`;
+    window.open(url, "_blank");
+  };
 
   return (
     <div>
@@ -101,7 +101,7 @@ export const SearchPage = () => {
           data={[
             { label: "Yangın Bilgisi", value: "Yangın" },
             { label: "Gaz Kaçağı Bilgisi", value: "Gaz kaçağı" },
-            { label: "Genel Hasar Bilgisi", value: "Deprem" }
+            { label: "Genel Hasar Bilgisi", value: "Deprem" },
             // Diğer tipleri buraya ekleyebilirsiniz
           ]}
           placeholder="Aratacağınız eylemi seçin"
@@ -224,5 +224,5 @@ export const SearchPage = () => {
         </ul>
       </div>
     </div>
-  )
-}
+  );
+};

@@ -1,36 +1,36 @@
-import React, { useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
-import { postIncident } from "../thunks/postIncident"
-import { Button, Card, Input, Notification, Select } from "@mantine/core"
-import EarthquakeEvent from "../incident-types/EartquakeEvent"
-import FireEvent from "../incident-types/FireEvent"
-import GasLeak from "../incident-types/GasLeak"
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { postIncident } from "../thunks/postIncident";
+import { Button, Card, Input, Notification, Select } from "@mantine/core";
+import EarthquakeEvent from "../incident-types/EartquakeEvent";
+import FireEvent from "../incident-types/FireEvent";
+import GasLeak from "../incident-types/GasLeak";
 
 export const CreateIncident = () => {
-  const [showNotification, setShowNotification] = useState(false)
-  const [notificationText, setNotificationText] = useState("")
-  const navigate = useNavigate()
-  const { markerId } = useParams()
-  console.log(markerId)
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationText, setNotificationText] = useState("");
+  const navigate = useNavigate();
+  const { markerId } = useParams();
+  console.log(markerId);
   const [incidentData, setIncidentData] = useState({
     type: "",
     details: {
-      personInfos: []
+      personInfos: [],
     },
-    media: []
-  })
+    media: [],
+  });
   const handleInputChange = (e) => {
-    const { name, value } = e.target
-    const [category, fieldName] = name.split(".")
+    const { name, value } = e.target;
+    const [category, fieldName] = name.split(".");
 
     if (category === "details") {
       setIncidentData((prevState) => ({
         ...prevState,
         details: {
           ...prevState.details,
-          [fieldName]: value
-        }
-      }))
+          [fieldName]: value,
+        },
+      }));
     } else if (category === "persons") {
       // Updated condition for "persons" category
       setIncidentData((prevState) => ({
@@ -40,74 +40,74 @@ export const CreateIncident = () => {
           ...prevState.details,
           persons: {
             ...prevState.details.persons,
-            [fieldName]: value
-          }
-        }
-      }))
+            [fieldName]: value,
+          },
+        },
+      }));
     } else {
       setIncidentData((prevState) => ({
         ...prevState,
-        [name]: value
-      }))
+        [name]: value,
+      }));
     }
-  }
+  };
   const handleInputChange2 = (e) => {
-    const { name, value } = e.target
-    const [category, fieldName, personIndex, subFieldName] = name.split(".")
+    const { name, value } = e.target;
+    const [category, fieldName, personIndex, subFieldName] = name.split(".");
 
     if (category === "details" && fieldName === "personInfos") {
-      const index = parseInt(personIndex, 10)
+      const index = parseInt(personIndex, 10);
       setIncidentData((prevState) => {
-        const updatedPersonInfos = [...prevState.details.personInfos]
+        const updatedPersonInfos = [...prevState.details.personInfos];
         updatedPersonInfos[index] = {
           ...updatedPersonInfos[index],
-          [subFieldName]: value
-        }
+          [subFieldName]: value,
+        };
 
         return {
           ...prevState,
           details: {
             ...prevState.details,
-            personInfos: updatedPersonInfos
-          }
-        }
-      })
+            personInfos: updatedPersonInfos,
+          },
+        };
+      });
     } else {
       setIncidentData((prevState) => ({
         ...prevState,
-        [name]: value
-      }))
+        [name]: value,
+      }));
     }
-  }
+  };
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      console.log(incidentData.type)
+      console.log(incidentData.type);
       if (incidentData.type.trim() === "") {
-        throw new Error("Lütfen bir olay türü seçiniz.")
+        throw new Error("Lütfen bir olay türü seçiniz.");
       }
-      const status = await postIncident(markerId, incidentData)
-      console.log("Status:", status)
+      const status = await postIncident(markerId, incidentData);
+      console.log("Status:", status);
       if (status === 201) {
         navigate("/page1", {
           state: {
             showNotification: true,
-            notificationText: "Olay başarılı şekilde oluşturuldu"
-          }
-        })
+            notificationText: "Olay başarılı şekilde oluşturuldu",
+          },
+        });
       }
     } catch (error) {
       // Handle error, such as displaying an error message
-      console.error(error)
+      console.error(error);
       // Show a notification with the error message
-      setShowNotification(true)
-      setNotificationText(error.message)
+      setShowNotification(true);
+      setNotificationText(error.message);
     }
     // Reset the form or perform any other necessary actions
-  }
+  };
 
   const renderEventComponent = () => {
-    const { type } = incidentData
+    const { type } = incidentData;
 
     switch (type) {
       case "Deprem":
@@ -118,7 +118,7 @@ export const CreateIncident = () => {
             handleInputChange={handleInputChange}
             incidentData={incidentData}
           />
-        )
+        );
       case "Yangın":
         return (
           <FireEvent
@@ -127,7 +127,7 @@ export const CreateIncident = () => {
             handleInputChange={handleInputChange}
             incidentData={incidentData}
           />
-        )
+        );
       case "Gaz kaçağı":
         return (
           <GasLeak
@@ -136,11 +136,11 @@ export const CreateIncident = () => {
             handleInputChange={handleInputChange}
             incidentData={incidentData}
           />
-        )
+        );
       default:
-        return null
+        return null;
     }
-  }
+  };
   return (
     <div className="grid gap-4">
       {/* Input fields for incident data */}
@@ -154,7 +154,7 @@ export const CreateIncident = () => {
           data={[
             { label: "Yangın Bilgisi", value: "Yangın" },
             { label: "Gaz Kaçağı Bilgisi", value: "Gaz kaçağı" },
-            { label: "Genel Hasar Bilgisi", value: "Deprem" }
+            { label: "Genel Hasar Bilgisi", value: "Deprem" },
             // Diğer tipleri buraya ekleyebilirsiniz
           ]}
           placeholder="Olay tipi"
@@ -171,15 +171,15 @@ export const CreateIncident = () => {
             position: "fixed",
             top: "50%",
             left: "50%",
-            transform: "translate(-50%, -50%)"
+            transform: "translate(-50%, -50%)",
           }}
         >
           <Notification
             title={notificationText}
             onClose={() => setShowNotification(false)}
-            shadow={true}
+            shadow="true"
             color={notificationText.includes("başarılı") ? "teal" : "red"}
-            style={{ marginTop: "1rem" }}
+            style={{ marginTop: "1rem", zIndex: "auto" }}
           >
             <Button onClick={() => setShowNotification(false)}>Close</Button>
           </Notification>
@@ -188,5 +188,5 @@ export const CreateIncident = () => {
 
       <button onClick={handleSubmit}>Onayla</button>
     </div>
-  )
-}
+  );
+};
