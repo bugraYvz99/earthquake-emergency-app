@@ -177,7 +177,7 @@ export const CreateIncident = () => {
           <Notification
             title={notificationText}
             onClose={() => setShowNotification(false)}
-            shadow="true"
+            shadow
             color={notificationText.includes("başarılı") ? "teal" : "red"}
             style={{ marginTop: "1rem", zIndex: "auto" }}
           >

@@ -1,24 +1,17 @@
 import React, { useEffect, useState, useRef } from "react";
-import {
-  MapContainer,
-  Marker,
-  TileLayer,
-  useMapEvent,
-  useMapEvents,
-} from "react-leaflet";
+import { MapContainer, Marker, TileLayer, useMapEvent } from "react-leaflet";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMarkers } from "../thunks/getmarkers";
 import { useLocation, useNavigate } from "react-router-dom";
 import RateModal from "./RateModal";
-import { Button, Card, CheckIcon, Loader, Notification } from "@mantine/core";
-import { IconCircleXFilled } from "@tabler/icons-react";
+import { Loader } from "@mantine/core";
+import { Card } from "@mantine/core";
 
 import "leaflet/dist/leaflet.css"; // Leaflet CSS dosyasını ekleyin
-import { map, marker } from "leaflet";
+import CustomNotification from "./notification/CustomNotification";
 
 const Map = ({ location }) => {
-  const mapRef = useRef(null); // Harita nesnesine erişim için ref oluşturun
-  const locations = useLocation();
+  const loc = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
@@ -32,7 +25,7 @@ const Map = ({ location }) => {
 
   const user = useSelector((state) => state.user);
   const userRole = user.tokenData.role;
-
+  console.log(loc);
   useEffect(() => {
     dispatch(fetchMarkers())
       .unwrap()
@@ -60,7 +53,7 @@ const Map = ({ location }) => {
     });
     return null;
   };
-
+  console.log(dbMarkers);
   const handleMarkerClick = (marker) => {
     setSelectedMarker(marker);
     setShowModal(true);
@@ -91,7 +84,6 @@ const Map = ({ location }) => {
   return (
     <div className="flex justify-center items-center flex-col">
       <MapContainer
-        ref={mapRef}
         center={center}
         zoom={10}
         style={{ width: "375px", height: "300px", zIndex: 1 }}
@@ -106,7 +98,6 @@ const Map = ({ location }) => {
             <Marker
               key={index}
               position={marker.position}
-              title={marker.address}
               eventHandlers={{
                 click: () => handleMarkerClick(marker),
               }}
@@ -125,7 +116,27 @@ const Map = ({ location }) => {
           />
         )}
       </MapContainer>
-      {!isLoading && (
+      <div className=" flex flex-col justify-center items-center w-2/3 gap-4 mt-4">
+        {dbMarkers &&
+          dbMarkers.map((marker, index) => (
+            <Card w={"100%"} bg="blue" key={index}>
+              {" "}
+              <p className=" font-bold text-lg">
+                {" "}
+                {"Kullanıcı:" + " " + marker.userName}
+              </p>
+              <p className="mt-2">
+                {" "}
+                {"Adres:" + JSON.stringify(marker.position)}
+              </p>
+              <p className="mt-2 text-red-400">
+                {" "}
+                {"Kullanıcı Telefon Numarası:" + marker.userNumber}
+              </p>
+            </Card>
+          ))}
+      </div>
+      {isLoading && (
         <div
           style={{
             display: "flex",
@@ -137,41 +148,7 @@ const Map = ({ location }) => {
           <Loader />
         </div>
       )}
-      {locations.state && locations.state.showNotification && (
-        <div
-          style={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-        >
-          <Notification
-            w={350}
-            icon={
-              locations.state.notificationText.includes("Başarılı") ||
-              "başarılı" ? (
-                <CheckIcon size="1.1rem" />
-              ) : (
-                <IconCircleXFilled />
-              )
-            }
-            onClose={() => navigate("/page1", { state: null })}
-            color={
-              locations.state.notificationText.includes("Başarılı") ||
-              "başarılı"
-                ? "teal"
-                : "red"
-            }
-            style={{ marginTop: "1rem" }}
-          >
-            <div className="mt-8">{locations.state.notificationText}</div>
-            <Button onClick={() => navigate("/page1", { state: null })}>
-              Close
-            </Button>
-          </Notification>
-        </div>
-      )}
+      {loc.state && <CustomNotification />}
     </div>
   );
 };

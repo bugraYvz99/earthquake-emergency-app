@@ -54,7 +54,7 @@ const MarkerDetails = () => {
         navigate("/page1", {
           state: {
             showNotification: true,
-            notificationText: "Silme işlemi başarılı",
+            notificationText: "Silme işlemi Başarılı",
           },
         });
       })
